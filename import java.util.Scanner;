@@ -1,0 +1,80 @@
+import java.util.Scanner;
+public class Main {
+
+ public static void main(String[] args) {
+
+     Scanner scan = new Scanner(System.in);
+
+     int times = scan.nextInt();
+
+     System.out.println(times);
+
+     int day;
+
+     int day2;
+
+     int t_day = 0;
+
+     int t_month;
+
+     String month;
+
+     String month2;
+
+     int year;
+
+     int year2;
+
+     int day_num;
+
+     int day_num2;
+
+     for (int i = 0; i < times; i++) {
+
+         String str_day = scan.next();
+
+         day = Integer.parseInt(str_day.substring(0, str_day.length() - 1));
+
+         month = scan.next();
+
+         year = scan.nextInt();
+
+         t_month = getHaabMonth(month);
+
+         if(t_month<=18){
+
+             t_day = (t_month-1) * 20;
+
+         }else{
+
+             t_day = 360;
+
+         }
+
+         day_num = 365 * year  +  t_day + (day + 1);
+
+         year2 = day_num / 260;
+
+         day_num2 = day_num % 260;
+
+         if(day_num2 == 0){
+
+             year2--;
+
+         }
+
+         day2 = day_num2 % 13;
+
+         if (day2 == 0) {
+
+             day2 = 13;
+
+         }
+
+         month2 = getTzolkinMonth(day_num2 % 20);
+
+         System.out.println(day2 + " " + month2 + " " + year2);
+
+     }
+
+ }
