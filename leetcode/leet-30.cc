@@ -42,60 +42,59 @@ public:
     }
 
     vector<int> findSubstring2(string s, vector<string>& words) {
-        vector<int> ret;
-        int len = s.length(), nums = words.size(), elen;
-        map<string, int> counts;
+        vector<int>ret;
+        map<string,int> counts;
         string tempStr;
-        if(s.empty() || words.empty()) return ret;
+        int slen = s.length(), nums = words.size(), elen;
         
+        if(s.empty() || words.empty()) return ret;
+
         elen = words[0].length();
-        for(auto ss : words) counts[ss]++;
+        for(auto ws : words) counts[ws]++;
 
         for(int i = 0; i < elen; i++){
-            int left = i, count = 0;
-            map<string, int> wd;
-
-            for(int j = i; j <= len - elen; j += elen){
+            int left = i, count = 0; //left from beginning of indices
+            map<string, int> freq;
+            for(int j = i; j <= slen - elen; j += elen){
                 tempStr = s.substr(j, elen);
-
-                if(wd.count(tempStr)){
-                    wd[tempStr]++;
-                    if(wd[tempStr] <= counts[tempStr]){
-                        count++;
+                if(counts.count(tempStr)){//if string is existence in words
+                    freq[tempStr]++; //mark it appear times
+                    if(freq[tempStr] <= counts[tempStr]){//if a string appear in the first time
+                        count++; //counter how many string in words has been appera in string
                     }else{
-                        while(wd[tempStr] > counts[tempStr]){
-                            string t = s.substr(left,elen);
-                            wd[t]--;
-                            if(wd[t] < counts[t]) count--;
-                            left += len;
+                        while(freq[tempStr] > counts[tempStr]){//if mutiple appear
+                            string temp = s.substr(left, elen); // get sub string
+                            freq[temp]--; //reduce it appear times
+                            if(freq[temp] < counts[temp]) count--; //this string has been deleted from counts,decrease whole matched counter 
+                            left += elen; //skip it 
                         }
                     }
 
-                    if(count == nums){
-                        ret.push_back(left);
-                        wd[s.substr(left, len)]--;
+                    if(count == nums){ //whole string in words has been matched
+                        ret.push_back(left);// remember the a site
+                        freq[s.substr(left, elen)]--;
                         count--;
-                        left += len;
+                        left += elen;
                     }
                 }else{
-                    wd.clear();
+                    freq.clear();
                     count = 0;
-                    left = j + len;
+                    left = j + elen;
                 }
             }
-        } 
+        }
 
         return ret;
     }
 };
 
-int main(int argc, const char** argv) {
+int main(int argc, const char* argv[]){
     Solution s;
-    string str("addstringtotext");
-    vector<string> v{"ad","ds"};
-    vector<int> ret = s.findSubstring2(str, v);
-    
-    for(auto sk : ret) cout << sk;
-    cout << endl;
+    string s1("barfoothefoobarman"), s2("wordgoodgoodgoodbestword");
+    vector<string> words{"foo","bar"}, words2{"word","good","best","word"};
+    vector<int> ret = s.findSubstring2(s1, words);
+    cout << "[";
+    for(auto cc : ret) cout <<" "<<cc<<" ";
+    cout <<"]" << endl;
     return 0;
 }

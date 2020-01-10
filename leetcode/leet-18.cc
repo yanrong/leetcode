@@ -39,3 +39,14 @@ public:
         return ret;
     }
 };
+
+int main(int argc, char const *argv[])
+{
+    Solution s;
+    vector<int> v{1, 0, -1, 0, -2, 2};
+    vector<vector<int>> ret = s.fourSum(v, 0);
+    for(vector<int> v : ret){
+        for(int i : v) cout << " " << i;
+    cout <<endl;}
+    return 0;
+}
