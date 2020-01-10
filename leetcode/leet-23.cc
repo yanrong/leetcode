@@ -13,27 +13,41 @@ struct ListNode {
 
 class Solution {
 public:
-    ListNode* mergeKLists(vector<ListNode*>& lists) {
-        ListNode *temp, *head, *post = nullptr, *tl1, *tl2;
+     ListNode* mergeKLists(vector<ListNode*>& lists) {
+        ListNode *temp, *head, *pre = nullptr, *tl1, *tl2;
+        int pos = 0;
+
         if(lists.empty()) return nullptr;
         if(lists.size() == 1) return lists.at(0);
 
-        tl1 = head = lists[0];
-        for(int i = 1; i < lists.size(); i++){
+        for(; lists[pos] == nullptr && pos < lists.size() - 1; pos++);
+        head = lists[pos];
+        
+        for(int i = pos + 1; i < lists.size(); i++){
+            if(lists[i] == nullptr) continue;
             tl2 = lists[i];
+            pre = tl1 = head;
             while (tl1 && tl2){
-                while(tl1->val <= tl2->val){
-                    post = tl1->next != nullptr ? tl1->next->next : nullptr;
+                if(tl1->val <= tl2->val){
+                    pre = tl1;
                     tl1 = tl1->next;
+                    continue;
+                }else{
+                    temp = new ListNode(tl2->val);
+
+                    pre->next = temp;
+                    temp->next = tl1;
+                    pre = pre->next;
+
+                    tl2 = tl2->next; 
                 }
+            }
 
+            while(tl2){
                 temp = new ListNode(tl2->val);
-                tl2 = tl2->next; 
-                tl1->next = temp;
-                temp->next = post;
-
-                tl1 = tl1->next != nullptr ? tl1->next->next : nullptr;
-                post = tl1->next != nullptr ? tl1->next->next : nullptr;
+                pre->next = temp;
+                pre = pre->next;
+                tl2 = tl2->next;
             }
 
             tl1 = head;
