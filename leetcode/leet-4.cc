@@ -12,11 +12,9 @@ public:
         for(i = nums1.begin(), j = nums2.begin();i != nums1.end() && j != nums2.end();){
             if(*i < *j){
                 mergerNums.push_back(*i);
-                cout << "i = " << *i <<endl;
                 i++;
             }else{
                 mergerNums.push_back(*j);
-                cout << "j = " << *j <<endl;
                 j++;
             }
         }
@@ -24,25 +22,61 @@ public:
         if(i != nums1.end()){
             mergerNums.insert(mergerNums.end(), i, i + (nums1.end() - i));
         }
-
         if(j != nums2.end()){
             mergerNums.insert(mergerNums.end(), j, j + (nums2.end() - j));
         }
-        /*
-        cout << "mergerNums size "<< mergerNums.size()<< endl;
-        for(vector<int>::const_iterator mi = mergerNums.begin(); mi != mergerNums.end(); mi++ )
-        {
-            cout<<" " << *mi;
-        }
-        cout << endl;*/
+
         mid = mergerNums.size() / 2;
+
         if((mergerNums.size() % 2)){
-            //cout << "result 1" << mergerNums[mid] <<endl;
             return mergerNums[mid];
         }else{
-            //cout<<"result 2  " << (mergerNums[mid] + mergerNums[mid - 1])/2.0 <<endl;
             return (mergerNums[mid] + mergerNums[mid - 1])/2.0 ;
         }
+    }
+
+    double findMedianSortedArrays2(vector<int>& nums1, vector<int>& nums2) {
+        int m, n, iMin, iMax, halfLen,minRight, maxLeft, i, j;
+
+        if(nums1.size() > nums2.size()){
+            vector<int> t = nums1; nums1 = nums2; nums2 = t;
+        }
+        m = nums1.size();
+        n = nums2.size();
+        iMin = 0; iMax = m; halfLen = (m + n + 1) / 2;
+
+        while(iMin <= iMax){
+            i = (iMin + iMax) / 2;
+            j = halfLen - i;
+
+            if(i < iMax && nums2[j - 1] > nums1[i]){
+                iMin = i + 1;
+            }else if(i > iMin && nums1[i - 1] > nums2[j]){
+                iMax = i - 1;
+            }else{
+                maxLeft = 0;
+                if(i == 0){
+                    maxLeft = nums2[j - 1];
+                }else if(j == 0){
+                    maxLeft = nums1[i - 1];
+                }else{
+                    maxLeft = max(nums1[i - 1], nums2[j - 1]);
+                }
+                if(((m + n) % 2) == 1) return maxLeft;
+
+                minRight = 0;
+                if (i == m){
+                    minRight = nums2[j];
+                }else if(j == n){
+                    minRight = nums1[i];
+                }else{
+                    minRight = min(nums1[i], nums2[j]);
+                }
+
+                return (maxLeft + minRight) / 2.0;
+            } 
+        }
+        return 0.0;
     }
 };
 
