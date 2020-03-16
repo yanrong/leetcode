@@ -23,7 +23,7 @@ public:
         nums = words.size();
         
         for(string s : words) counts[s]++; //init every words times shoule be in string, only a time
-        //slen - nums * elen -1 represent a whole words combine string
+        //slen - nums * elen represent a whole words combine string
         for(int i = 0; i <= slen - nums * elen; i++){
             map<string, int> frequency;// counts every string times in words
             int j = 0;

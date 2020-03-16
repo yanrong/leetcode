@@ -10,7 +10,7 @@ using std::endl;
 class Solution {
 public:
     int longestValidParentheses(string s) {
-         int max_len = 0, len = s.size();
+        int max_len = 0, len = s.size();
         
         if (len < 2) return 0;
         int dp[len] = {0};
@@ -55,17 +55,41 @@ public:
         return maxlen; 
     }
 
-    int longestValidParentheses2(string s) {
+    int longestValidParentheses3(string s) {
         int maxlen = 0, left = 0, right = 0;
         if (s.length() < 2) return 0;
-
+        //detect like ((
         for(int i = 0; i < s.length(); i++){
             if(s[i] == '(') {
                 left++;
             } else {
                 right++;
             }
+
+            if(left == right){ // if equal ,they must have a valid string
+                maxlen = max(maxlen, 2 * right);
+            }else if(right >= left){
+                left = right = 0;
+            }
         }
+
+        left = right = 0;
+        //detected like ))
+        for(int i = s.length(); i >= 0; i--){
+            if(s[i] == '(' ){
+                left++;
+            }else{
+                right++;
+            }
+
+            if(left == right){
+                maxlen = max(maxlen, 2 * left);
+            }else if(left >= right){
+                left = right = 0;
+            }
+        }
+
+        return maxlen;
     }
 };
 

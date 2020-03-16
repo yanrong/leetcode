@@ -17,15 +17,15 @@ public:
         {
             if (s[i] == s[i + 1])
             {
-                dp[i][i + 1] = true; //if adjacnt two char is palindromic, mark it
+                dp[i][i + 1] = true; //if adjacent two char is palindromic, mark it
                 max_len = 2;
                 pos = i;
             }
         }
         for(int k = 3; k <= len; k++){ //init span, a and increment to whole length
-            for(int i = 0; i  <= len - k; i++){
+            for(int i = 0; i <= len - k; i++){
                 int j = i + k - 1;
-                if(s[i]== s[j] && dp[i+1][j-1]){ //judge from thrid char, if it is equal and sub string is parlindromic
+                if(s[i]== s[j] && dp[i+1][j-1]){ //judge from third char, if it is equal and sub string is parlindromic
                     dp[i][j] = true;
                     pos = i;
                     max_len  = k;
@@ -34,5 +34,5 @@ public:
         }
 
     return s.substr(pos, max_len);
-  }
+    }
 };

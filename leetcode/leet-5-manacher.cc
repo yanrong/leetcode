@@ -41,10 +41,10 @@ public:
                 mx = i + p[i];
             }
 
-           if(max_len > p[i] - 1){
-               pos = i;
-               max_len = p[i];
-           }
+            if(max_len > p[i] - 1){
+                pos = i;
+                max_len = p[i];
+            }
         }
 
         return s.substr(pos, max_len - 1); //border plus 1

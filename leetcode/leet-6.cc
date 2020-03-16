@@ -1,54 +1,52 @@
 #include <iostream>
 #include <string>
+#include <vector>
+
+using std::vector;
 using std::string;
+using std::min;
 using std::cout;
 using std::endl;
-/*
+
 class Solution {
 public:
     string convert(string s, int numRows) {
-        string str;
-        int n = s.length();
-        if(numRows == 1) return s;
-        for(int j = 0; j < numRows; j++)
-            for(int i = 0; (i - j) < n; i += (2 * numRows - 2))
-            {
-                if(i - j > 0 && j != 0 && j != (numRows - 1))
-                    str += s[i - j];
-                if((i +j ) < n)
-                    str += s[i + j];
-            }
-        return str; 
-    }
-};
-*/
-class Solution {
-public:
-  string convert(string s, int numRows) {
-        if (numRows == 1 || s.length() <= numRows) return s;  //特殊处理
-        int len = s.length();
-        string result = "";
-        for (int i = 0; i < numRows; i++) {
-            int step1 = 2*(numRows-1-i);
-            int step2 = 2*i;
-            int pos = i;
-            result += s[pos];
-            while (1) {
-                pos += step1;
-                if (pos >= len) break;
-                if (step1) result += s[pos];  //先算出（n = 1和n= numRows - 2）
-                pos += step2;
-                if (pos >= len) break;
-                if (step2) result += s[pos];  //输出n=0和n = numRows -1行
+        string ret;
+        int n = s.size();
+        int cycleLen = 2 * numRows - 2;
+        if(numRows == 1 || numRows > n) return s;
+        
+        for(int i = 0; i < numRows; i++){ //calculate each row
+            for(int j = 0; i + j < n; j += cycleLen){ // j equal to a cycle zigzag, i + j will skip to next zigzag
+                ret += s[i + j]; // each zigzag, add colum char to ret.
+                if(i != 0 && i != numRows - 1 && (j + cycleLen - i) < n){ //if row number is not  0 or numRows -1 and
+                    /*cycle - i is distance from column char to zigzag char,
+                    j start from 0, j + cycle -i is exactly zigzag char place*/
+                    ret += s[j + cycleLen - i];
+                }
             }
         }
-        return result;
+        
+        return ret;
     }
-};
+    
+    string convert1(string s, int numRows) {{
+        string ret;
+        bool goingDown = false;
+        int curRow =0;
+        vector<string> rows(min(numRows, (int)s.size()));
+        
+        for(char c : s){
+            rows[curRow] += c;
+            if(curRow == 0 || curRow == (numRows - 1)) goingDown = !goingDown;
+            curRow += goingDown ? 1 : -1;
+        }
+        for(string row : rows) ret += row;
+        
+        return ret;
+    }
 
-class Solution2 {
-public:
-    string convert(string s, int numRows) {
+    string convert3(string s, int numRows) {
         string res = "";
         int cycle = 2 * numRows - 2; // zigzag recycle
 

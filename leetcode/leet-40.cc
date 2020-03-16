@@ -22,7 +22,7 @@ public:
         //target must be less equal candidates[i]
         for(int i = pos; i < candidates.size() && candidates[i] <= target; i++){
             /* from 0 to the last one element in candidates
-            * [pos] must be vaild place, the later element need check if it is same
+            * [pos] must be valid place, the later element need check if it is same
             * as previous node, we try to generated all combination, but all unique.
             * so if they are same, skip it.  
             */

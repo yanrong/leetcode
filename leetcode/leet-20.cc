@@ -19,18 +19,13 @@ public:
                 tmp = getMatch(top);
                 if(tmp == i) stack.pop_back();
                 else stack.push_back(i);
-                //cout <<"i "<< i << " top " << top << " tmp " << tmp <<endl;
             }
-
-            for(char ccc : stack) cout << ccc<< " ";
-            cout <<endl;
         }
 
-        cout << stack.empty() <<endl;
         return stack.empty();
     }
     char getMatch(char c){
-        map<char,char> mapChar = {
+        std::map<char,char> mapChar = {
             {'(', ')' },
             {'[', ']' },
             {'{', '}' },
