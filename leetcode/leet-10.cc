@@ -35,7 +35,7 @@ public:
         //is p is empty, only can match s
         for (int i = 1; i <= m; i++)
             dp[i][0] = false;
-        //初始化第0列，只有X*能匹配空串
+        //if s is empty, only x* can match it
         for (int j = 1; j <= n; j++)
             dp[0][j] = j > 1 && '*' == p[j - 1] && dp[0][j - 2];
         
@@ -45,9 +45,10 @@ public:
             {
                 if (p[j - 1] == '*')
                 {
+                    //none matched,  if a char before * is matched, and try if more mutiple is matched,
                     dp[i][j] = dp[i][j - 2] || (s[i - 1] == p[j - 2] || p[j - 2] == '.') && dp[i - 1][j];
                 }
-                else //只有当前字符完全匹配，才能传递dp[i-1][j-1] 值
+                else //dp[i-1][j-1] and s[i-1] == p[j-1],
                 {
                     dp[i][j] = (p[j - 1] == '.' || s[i - 1] == p[j - 1]) && dp[i - 1][j - 1];
                 }
