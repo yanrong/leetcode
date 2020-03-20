@@ -1,13 +1,20 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <map>
+#include <unordered_map>
+#include <stack>
 using namespace std;
 
 class Solution {
 public:
     bool isValid(string s) {
         vector<char> stack;
+        unordered_map<char,char> mapChar = {
+            {'(', ')' },
+            {'[', ']' },
+            {'{', '}' },
+        };
+
         char top, tmp;
         if(!s.length()) return true;
 
@@ -16,7 +23,7 @@ public:
                 stack.push_back(i);
             }else{
                 top = stack.back();
-                tmp = getMatch(top);
+                tmp =  mapChar.count(top) ? mapChar[top] : '#';
                 if(tmp == i) stack.pop_back();
                 else stack.push_back(i);
             }
@@ -24,17 +31,29 @@ public:
 
         return stack.empty();
     }
-    char getMatch(char c){
-        std::map<char,char> mapChar = {
-            {'(', ')' },
-            {'[', ']' },
-            {'{', '}' },
+
+    bool isValid(string s) {
+        stack<char> charStack;
+        unordered_map<char,char> mapChar = {
+            {')', '(' },
+            {']', '[' },
+            {'}', '{' },
         };
-        
-        for(auto p : mapChar){
-            if(p.first == c) return p.second;
+
+        for(int i = 0; i < s.size(); i++){
+            char c = s[i];
+            //if the char is ( [ { push it to stack, otherwise check if it is matched
+            if(mapChar.find(c) != mapChar.end()){
+                char top = charStack.empty() ? '#' : charStack.top();
+                if(top != mapChar.at(c)){//if there a char is dismatch, return false
+                    return false;
+                }
+                charStack.pop();
+            }else{
+                charStack.push(c);
+            }
         }
-        return 0;
+        return charStack.empty();
     }
 };
 

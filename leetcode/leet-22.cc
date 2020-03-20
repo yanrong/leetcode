@@ -22,6 +22,58 @@ public:
     }
 };
 
+//official solution
+class Solution {
+public:
+    /****first solution***/
+    vector<string> generateParenthesis(int n) {
+        vector<string> combinations;
+        string temp(2*n, (char)0);
+        generateAll(temp, 0, combinations);
+        return combinations;
+    }
+    void generateAll(string& s, int pos, vector<string>& result){
+        if(pos == s.length()){
+            if(valid(s)) result.push_back(s);
+        }else{
+            s[pos]='(';
+            generateAll(s, pos + 1, result);
+            s[pos] = ')';
+            generateAll(s, pos + 1, result);
+        }
+    }
+    bool valid(string& s){
+        int balance = 0;
+        for(auto c : s){
+            if(c == '(') balance++;
+            else balance--;
+            if(balance < 0) return false;
+        }
+
+        return balance == 0;
+    }
+    /****second solution backtrace*****/
+    vector<string> generateParenthesis(int n) {
+        vector<string> ret;
+        backTrace(ret, "", 0, 0, n);
+        return ret;
+    }
+
+    void backTrace(vector<string>& ret, string cur, int open, int close, int max){
+        if(cur.size() == max * 2){
+            ret.push_back(cur);
+            return;
+        }
+
+        if(open < max){
+            backTrace(ret, cur + "(", open + 1, close, max);
+        }
+        if(close < open){
+            backTrace(ret, cur + ")", open, close + 1, max);
+        }
+    }
+};
+
 int main(int argc, const char** argv) {
     vector<string> vec;
     Solution s;

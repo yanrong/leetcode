@@ -17,7 +17,7 @@ public:
             for(int j = 0; j < size; j++){
                 string top = result.front();// get top
                 result.erase(result.begin()); // remove it, further generate will contain it
-                //cout << digits[i] - '1' <<" "<< strMap[digits[i] - '1']<<endl;
+                
                 for(int l = 0; l < strMap[digits[i] - '1'].size(); l++){ // get the map string
                     result.push_back(top + strMap[digits[i] - '1'][l]); //combine top and each char in strMap[l], generate a new string
                 }
