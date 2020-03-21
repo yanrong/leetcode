@@ -16,6 +16,16 @@ public:
 
         return ret;
     }
+    
+    int maxArea(vector<int>& height) {
+        int maxArea;
+        for(int i = 0; i < height.size(); i ++){
+            for(int j = i + 1; j < height.size(); j++){
+                maxArea = max(maxArea, min(height[i], height[j]) * (j - i));
+            }
+        }
+        return maxArea;
+    }
 };
 
 int main(int argc, const char** argv) {
