@@ -64,7 +64,7 @@ public:
         for(int i = 1; cur; i++){
             if(i % k == 0){//at each reverse node, crate a function return reverse node
                 pre = reverse1Group(pre, cur->next);
-                cur = pre->next;
+                cur = pre->next;//after finished a reverse, skip to next one group
             }else{//if it is not reverse node, skip to next
                 cur = cur->next;
             }
@@ -74,9 +74,9 @@ public:
     }
     
     ListNode* reverse1Group(ListNode* pre, ListNode* next){
-        ListNode* last = pre->next;// got i + k - 1 node
-        ListNode* cur = last->next; //get i + k node
-        
+        ListNode* last = pre->next; 
+        ListNode* cur = last->next; 
+        /**insert each one before last node with range from cur to a node before next **/
         while(cur != next){
             last->next = cur->next;
             cur->next = pre->next;
@@ -93,18 +93,19 @@ public:
         ListNode* pre = dummy, *cur = pre;
         int num = 0;
         dummy->next = head;
+        //count the length
         while(cur = cur->next) num++;
         
         while(num >= k){
-            cur = pre->next;
-            for(int i = 1 ; i < k; i++){
-                ListNode* t = cur->next;
-                cur->next = t->next;
-                t->next = pre->next;
-                pre->next = t;
+            cur = pre->next;//move the cur to next group initial node
+            for(int i = 1; i < k; i++){
+                ListNode* t = cur->next; //mark the temp node that be insert into afpter pred
+                cur->next = t->next; //
+                t->next = pre->next; //skip cur node and t node order
+                pre->next = t; // link it
             }
-            pre = cur;
-            num -= k;
+            pre = cur;//after all reverse, cur is the last one, so pre point to it.
+            num -= k; // reduce the counter
         }
         return dummy->next;
     }

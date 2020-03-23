@@ -24,14 +24,27 @@ public:
     //more fast better design
     int removeDuplicates(vector<int>& nums) {
         if (nums.empty()) return 0;
-        int i=0;
-        for (int j = 0;j < nums.size();j++) {
-            if (nums[i] != nums[j]) {
-                nums[i+1] = nums[j];
+        int i = 0;
+        for (int j = 1; j < nums.size(); j++) {
+            if (nums[i] != nums[j]) { // if no  equal
+                nums[i + 1] = nums[j]; // cover origin value
                 i++;
             }
         }
-        nums.erase(nums.begin()+i+1, nums.begin()+nums.size());
+        nums.erase(nums.begin() + i + 1, nums.end());
         return nums.size();
+    }
+
+    int removeDuplicates(vector<int>& nums) {
+        if (nums.empty()) return 0;
+        int i = 0;
+        for (int j = 1; j < nums.size(); j++) {
+            if (nums[i] != nums[j]) {//if no equal, as a sort array
+                i++;               //skip to next adjacent place and cover value,
+                nums[i] = nums[j]; //
+            }
+        }
+        
+        return i + 1;
     }
 };
