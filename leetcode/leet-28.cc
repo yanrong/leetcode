@@ -8,6 +8,7 @@ using std::string;
 
 class Solution {
 public:
+    /**KMP solution**/
     int strStr(string haystack, string needle) {
         int i = 0, j = 0;
         vector<int> kmp(needle.length() + 1, 0);
@@ -15,7 +16,6 @@ public:
         if(needle.empty()) return 0;
         
         getNext(needle, kmp);
-        //for(auto cc:kmp) cout <<cc <<" "; cout <<endl;
         while(i < haystack.length())
         {
             if(j == -1 || haystack[i] == needle[j]){
@@ -23,7 +23,6 @@ public:
             }else{ 
                 j = kmp[j];;
             }
-            //cout << "j " << j <<" i " <<i <<endl;
             if(j == needle.length()) return i - needle.length();
         }
         
@@ -43,6 +42,8 @@ public:
             }    
         } 
     }
+    
+    /**solution from official [Rabin Karp]**/
 };
 
 int main(int argc, char const *argv[])
