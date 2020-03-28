@@ -1,5 +1,8 @@
 #include <vector>
+#include <algorithm> 
 using std::vector;
+using std::reverse;
+using std::swap;
 
 class Solution {
 public:
@@ -18,19 +21,22 @@ public:
             while(j >= 0 && nums[j] <= nums[i]){
                 j--;
             }
+            swap(nums[i], nums[j]);
             //swap it
+            /*
             temp = nums[i];
             nums[i] = nums[j];
-            nums[j] = temp;
+            nums[j] = temp;*/
         }
         // then reverse sub set from i to last one
-        k = nums.size() - 1;
+        /*k = nums.size() - 1;
         i++;
         while(i < k){
             temp = nums[i];
             nums[i] = nums[k];
             nums[k] =  temp;
             i++; k--;
-        }
+        }*/
+        reverse(nums.begin() + i + 1, nums.end());
     }
 };

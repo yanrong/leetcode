@@ -17,14 +17,14 @@ public:
         s = labs(divisor);
         
         while(s <= k){
-            long div = s, t = 1;//store steps;
+            long div = s, t = 1;//count steps; a / b = b*2^n + k, 
             //add to k/2
             while(k > (div << 1)){
                 div <<= 1; //every step multiply 2
                 t <<= 1; //store how many steps has been done
             }
             
-            k -= div;;
+            k -= div;
             ret += t;
         }
         

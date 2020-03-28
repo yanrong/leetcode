@@ -72,6 +72,29 @@ public:
             backTrace(ret, cur + ")", open, close + 1, max);
         }
     }
+    /***other way from official leetcode***/
+    /***other way in dp
+    ***for each combinations, it must be begin with '(' ,  end with ')' without definitely
+    ***so enum the all place of ')' as possible. the middle int close brace mys is valid.
+    ***the reset valid braces in the right of ')' 
+    **** dp[i] = '(' + dp[j] +')' + dp[i -j - 1]
+    ***/
+    vector<string> generateParenthesis(int n) {
+        vector<string> ret;
+        if(n == 0){
+            ret.push_back("");
+        }else{
+            for(int c = 0; c < n; c++){
+                for(string left : generateParenthesis(c)){
+                    for(string right : generateParenthesis(n - 1 - c)){
+                        ret.push_back("(" + left + ")" + right);
+                    }
+                }
+            }
+        }
+        
+        return ret;
+    }
 };
 
 int main(int argc, const char** argv) {

@@ -1,8 +1,10 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <stack>
 using std::vector;
 using std::string;
+using std::stack;
 using std::max;
 using std::cout;
 using std::endl;
@@ -90,6 +92,42 @@ public:
         }
 
         return maxlen;
+    }
+    
+    /**official solution 4 over limit time**/
+    int longestValidParentheses(string s) {
+        int maxlen = 0;
+        string temp;
+
+        if(s.length() < 2) return maxlen;
+        for(int i = 0; i < s.length(); i++){
+            //sub string range is [pos pos + len) so j should point last one plus 1 position
+            for(int j = i + 2; j <= s.length(); j += 2){
+                temp = s.substr(i, j - i);
+                
+                if(isValid(temp)){
+                    maxlen = max(maxlen, j - i); 
+                }
+            }
+        }
+
+        return maxlen;
+    }
+
+    bool isValid(string s){
+        stack<char> vstack;
+        for(int i = 0; i < s.length(); i++){
+            //'(' always should be push to stack
+            if(s[i] == '(' ){
+                vstack.push('(');
+            }else if(!vstack.empty() && vstack.top() == '(' ){ //if stack is not empty
+                vstack.pop(); // and top one is '(' and ')' is coming, pop top element
+            }else{
+                return false; // the string is not valid
+            }
+        }
+
+        return vstack.empty(); //check if stack is empty, maybe one or more '(' in stack  
     }
 };
 
