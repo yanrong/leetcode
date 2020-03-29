@@ -15,13 +15,18 @@ public:
         int max_len = 0, len = s.size();
         
         if (len < 2) return 0;
-        int dp[len] = {0};
+        int dp[len] = {0}; // dp[i] mean the length of valid string end at i 
         for (int i = 1; i < len; i++) {
             if (s[i] == ')') {
-                if (s[i - 1] == '(') {
+                if (s[i - 1] == '(') { // if there have a "()", this is a matched case, dp[i] = dp[i - 2] + 2
                     dp[i] = ((i >= 2) ? dp[i - 2] : 0) + 2;
                 } else {
+                    // if this is case sub string end with "))", now if first ')' is match
+                    // and the second also a valid,
+                    // the first ')' is matched'(' and not out range i - dp[i - 1] 
                     if ((i - dp[i - 1]) > 0 and s[i - dp[i - 1] - 1] == '(') {
+                        //if "))" all is matched dp[i] = dp[i - 1] + 2, we also need add valid length before '('
+                        //i - dp[i - 1] > = 2 make sure do not out of range
                         dp[i] = dp[i - 1] + ((i - dp[i - 1] >= 2) ? dp[i - dp[i - 1] - 2] : 0) + 2;
                     }
                 }
@@ -30,7 +35,6 @@ public:
             }
         }
 
-        //for(int i =0 ; i < len; i++) cout << dp[i] << " " ; cout<< endl;
         return max_len;
     }
 
@@ -50,8 +54,6 @@ public:
                     maxlen = max(maxlen, i - stack.back());
                 }
             }
-            cout << "maxlen = " <<maxlen <<endl;
-            for(auto cj : stack) cout << cj << " "; cout << endl;
         }
 
         return maxlen; 

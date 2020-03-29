@@ -75,7 +75,7 @@ public:
 
         for(int start = 1; start < n - l + 1; start++){
             // compute rolling hash in O(1) time
-            h = (h * a - char2int(start - 1, haystack) * al + char2int(start + l -1, haystack)) % modules;
+            h = (h * a - char2int(start - 1, haystack) * al + char2int(start + l - 1, haystack)) % modules;
             if(h == ref_h) return start;
         }
         return -1;
