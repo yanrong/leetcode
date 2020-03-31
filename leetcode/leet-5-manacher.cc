@@ -1,4 +1,6 @@
 #include <string>
+
+using std::min;
 using std::string;
 class Solution
 {
@@ -28,7 +30,7 @@ public:
         for (int i = 1; i < str.length(); i++)
         {
             if (i < mx)
-                p[i] = p[2 * id - i] < mx - i ? p[2 * id - i] : mx - i ; 
+                p[i] = min(p[2 * id - i], mx - i);
             else
                 p[i] = 1;
 
