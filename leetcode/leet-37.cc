@@ -19,11 +19,11 @@ public:
                 }
             }
         }
-        //recuse from begin
-        recuseSudoku(board, rows, cols, boxes, 0, 0);
+        //recurse from begin
+        recurseSudoku(board, rows, cols, boxes, 0, 0);
     }
 
-    bool recuseSudoku(vector<vector<char>>& board, bool (*rows)[10], bool (*cols)[10], bool (*boxes)[10], int r, int c)    {
+    bool recurseSudoku(vector<vector<char>>& board, bool (*rows)[10], bool (*cols)[10], bool (*boxes)[10], int r, int c)    {
         if(c == 9){ //if we have finish a row(column from 1 to 9 ),
             c = 0;// column back to zero
             r++; // get next row
@@ -43,7 +43,7 @@ public:
                     //because we dispose by a line to anther line by increase column index until reach border
                     //if reach column border(finished a line(row)), r++ get next row
                     //untill all object is done,  return true r = 9 && r = 9 
-                    if(recuseSudoku(board, rows, cols, boxes, r, c + 1)){
+                    if(recurseSudoku(board, rows, cols, boxes, r, c + 1)){
                         return true;
                     }
                     board[r][c] = '.';
@@ -54,7 +54,7 @@ public:
             }
         }else{
             //if board[r][c] is vailid number, try next one in this line(row)
-            return recuseSudoku(board, rows, cols, boxes, r, c + 1);
+            return recurseSudoku(board, rows, cols, boxes, r, c + 1);
         }
         return false;
     }
