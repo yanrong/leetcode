@@ -39,6 +39,7 @@ public:
     }
     
     //from other solution in leetcode ikaruga
+//greedy algorithms
     int jump(vector<int> &nums)
     {
         int ans = 0;

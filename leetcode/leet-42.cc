@@ -75,4 +75,33 @@ public:
         }
         return ret;
     }
+    /**
+     * official solution
+     * to avoid calculate max cost two times, but aware of if leftMax > rightMax,
+     * the trap capacity is depend on small one, so from left(0) to right(size - 1)
+     * compare it,get smaller one
+     **/
+    int trap(vector<int>& height) {
+        int left = 0, right = height.size() - 1;
+        int ret = 0;
+        int leftMax = 0, rightMax = 0;
+
+        while(left < right){
+            //get the smaller one
+            if(height[left] < height[right]){
+                //judge max in left side, if leftMax is greater, recoder the capacity
+                //else update the max
+                height[left] >= leftMax ? 
+                (leftMax = height[left]) : (ret += leftMax - height[left]);
+                left++;
+            }else{
+                //judge max in right side
+                height[right] > rightMax ? 
+                (rightMax = height[right]) : (ret += rightMax - height[right]);
+                right--;
+            }
+        }
+
+        return ret;
+    }
 };

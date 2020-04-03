@@ -21,8 +21,10 @@ public:
         }
         //target must be less equal candidates[i]
         for(int i = pos; i < candidates.size() && candidates[i] <= target; i++){
-            /*pos start from 0, so if recurse back, we need check if this one is equal
-            * to the previous one, i != pos also avoid to overflow in indices i - 1
+            /* from 0 to the last one element in candidates
+            * [pos] must be vaild place, the later element need check if it is same
+            * as previous node, we try to generated all combination, but all unique.
+            * so if they are same, skip it.  
             */
             if(i != pos && candidates[i] == candidates[i - 1]) continue;
             tmp.push_back(candidates[i]);

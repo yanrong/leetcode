@@ -33,4 +33,76 @@ public:
 
         return dp[m][n];
     }
+    //official solution
+    bool isMatch(string s, string p) {
+        int sLen = s.size(), pLen = p.size();
+        vector<vector<bool>> dp(pLen, vector<bool>(sLen, false));
+
+        if(p == s || p == "*") return true;
+        if(s.empty() || s.empty()) false;
+        //dp[i][j] the sub string before index i in p and the substring before index j in s is matched
+        dp[0][0] = true;
+        //dp compute
+        for(int pIdx = 1; pIdx < pLen; pIdx++){
+            //the current character in the patter is '*'
+            if(p.at(pIdx - 1) == '*'){
+                int sIdx = 1;
+                // d[p_idx - 1][s_idx - 1] is a string-pattern match
+                // on the previous step, i.e. one character before.
+                // Find the first idx in string with the previous math.
+                while(!dp[pIdx - 1][sIdx - 1] && (sIdx < sLen)) sIdx++;
+                // If (string) matches (pattern),
+                // when (string) matches (pattern)* as well
+                dp[pIdx][sIdx - 1] = dp[pIdx - 1][sIdx - 1];
+                // If (string) matches (pattern),
+                // when (string)(whatever_characters) matches (pattern)* as w
+                while(sIdx < sLen) dp[pIdx][sIdx++] = true;
+            }else if(p.at(pIdx - 1) == '?'){
+                for(int sIdx = 1; sIdx < sLen; sIdx++){
+                    dp[pIdx][sIdx] = dp[pIdx - 1][sIdx - 1];
+                }
+            }else{
+                for(int sIdx = 1; sIdx < sLen; sIdx++){
+                    dp[pIdx][sIdx] = dp[pIdx - 1][sIdx - 1] && p.at(pIdx - 1) == s.at(sIdx - 1);
+                }
+            }
+        }
+        return dp[pLen - 1][sLen - 1];
+    }
+
+    bool isMatch(string s, string p) {
+        int sLen =  s.size(), pLen = p.size();
+        int sIdx = 0, pIdx = 0;
+        int startIdx = -1, sTmpIdx = -1;
+
+        while(sIdx < sLen){
+            //if the pattern character = string chararcter or patter chararcter = '?'
+            if(pIdx < pLen && (p.at(pIdx) == '?' || p.at(pIdx) == s.at(sIdx))){
+                sIdx++;
+                pIdx++;
+            }else if(pIdx < pLen && p.at(pIdx) == '*'){
+                //if pattern character ='*'
+                //check the situation when '*' matches no chararcters
+                startIdx = pIdx;
+                sTmpIdx = sIdx;
+                pIdx++;
+            }else if(startIdx == -1){
+                //If pattern character != string character or pattern is used up
+                // and there was no '*' chararcter in patterns
+                return false;
+            }else{
+                //If pattern character != string character or pattern is used up
+                // and there was '*' chararcter in patterns before
+                //backtrace: check the situation, when '*' matches one more character
+                pIdx = startIdx + 1;
+                sIdx = sTmpIdx + 1;
+                sTmpIdx = sIdx;
+            }
+        }
+        //The remaining characters in the pattern should all be '*' characters
+        for(int i = pIdx; i < pLen; i++){
+            if(p.at(i) != '*') return false;
+        }
+        return true;
+    }
 };
