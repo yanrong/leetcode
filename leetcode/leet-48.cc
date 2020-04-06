@@ -38,7 +38,7 @@ public:
     void rotate(vector<vector<int>>& matrix) {
         int size = matrix.size();
         vector<int> tmp(size);
-        //in rever digoanl j from zero to index before digonal
+        //in reverse diagonal j from zero to index before diagonal
         //the [i][j] mirror index is out of j boundary, the total length is size - 1;
         //we also know the index of j, the mirror of j is size -1 - j
         for(int i = 0 ; i < size; i++){
