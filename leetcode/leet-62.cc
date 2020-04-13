@@ -1,6 +1,7 @@
 #include <vector>
 using std::vector;
-str
+using std::min;
+using std::max;
 
 class Solution {
 public:

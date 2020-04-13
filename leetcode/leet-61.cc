@@ -44,4 +44,38 @@ public:
         }
         return head;
     }
+    
+    //overtime
+    ListNode* rotateRight(ListNode* head, int k) {
+        vector<int> loop;
+        ListNode *t = head;
+        int nums = k, tmp, length, m;
+        while(t != nullptr){
+            loop.push_back(t->val);
+            t = t->next;
+        }
+        
+        length = loop.size();
+        if(length <= 1) return head;
+        if(2 * length <= k){
+            //double rotate is restort to original sequence, just counter how many should to rotata
+            m = k % length;
+        }else{
+            m = k;
+        }
+        
+        while(m > 0){
+            tmp = loop.back();
+            loop.pop_back();
+            loop.insert(loop.begin(), tmp);
+            m--;
+        }
+        
+        t = head;
+        for(int i = 0; i < loop.size() && t!= nullptr; i++){
+            t->val = loop[i];
+            t = t->next;
+        }
+        return head;
+    }
 };
