@@ -2,7 +2,6 @@
 #include <vector>
 using std::vector;
 using std::string;
-using std::swap;
 
 class Solution {
 public:

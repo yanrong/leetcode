@@ -1,3 +1,5 @@
+#include <vector>
+using std::vector;
 /**
  * Definition for singly-linked list.
  */
@@ -44,8 +46,8 @@ public:
         }
         return head;
     }
-    
-    //overtime
+
+    //to slow
     ListNode* rotateRight(ListNode* head, int k) {
         vector<int> loop;
         ListNode *t = head;
