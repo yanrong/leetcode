@@ -5,7 +5,7 @@ using std::swap;
 
 class Solution {
 public:
-    /*****heap sort  from DataStruct and [Algorithm in C 2nd edition]****/
+    /*****heap sort from DataStruct and Algorithm in C [2nd edition]****/
     inline int leftChld(int i){
 		//left child
         return 2 * i + 1;
@@ -46,15 +46,61 @@ public:
             precDown(nums, 0, i);
         }
     }
+
+    //heapSort from [Introduction of Algorithms 3rd edition]
+    inline int left(int i){
+        return 2 * i;
+    }
+    inline int right(int i){
+        return 2 * i + 1;
+    } 
+
+    void maxHeapify(vector<int>& array, int i, int size){
+        int l = left(i);
+        int r = right(i);
+        int largest;
+
+        if(l <= size and array[l] > array[i]){
+            largest = l;
+        }else{
+            largest = i;
+        }
+        if(r <= size and array[r] > array[largest]){
+            largest = r;
+        }
+        
+        if(largest != i){
+            swap(array[i], array[largest]);
+            maxHeapify(array, largest, size);
+        }
+    }
+
+    void builMaxHeap(vector<int>& arrray){
+        int size = arrray.size() - 1;
+        for(int i = size / 2; i >= 1; i--){
+            maxHeapify(arrray, i, size);
+        }
+    }
+
+    void heapSort2(vector<int>& array){
+        builMaxHeap(array);
+        for(int i = array.size() - 1; i >= 2; i--){
+            swap(array[1], array[i]);
+            maxHeapify(array, 1, i - 1);
+        }
+    }
 };
 
 int main(int argc, char const *argv[])
 {
     /* code */
+    const int INFINIT = -10000;
     vector<int> nums{ 23, 45, 12, 90, 18, 675, 64, 543, 89, 94};
+    vector<int> nums2{INFINIT ,23, 45, 12, 90, 18, 675, 64, 543, 89, 94};
     Solution s;
-    s.heapSort(nums);
-    for(auto i : nums){
+    //s.heapSort(nums);
+    s.heapSort2(nums2);
+    for(auto i : nums2){
         std::cout << " " << i;
     }
     std::cout<< std::endl;

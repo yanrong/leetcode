@@ -30,7 +30,7 @@ public:
         //repace char in word1 and word2, diacard the loat char, because the recurse in before has
         //calculate this char
         c = minDistance(word1.substr(0, word1.length() - 1), word2.substr(0, word2.length() -1));
-        //after replace the char int both string, it the last one is no equal, 
+        //after replace the char in both string, if the last one is no equal, 
         //that indicate need one more step to get result
         if(word1.at(word1.length() - 1) != word2.at(word2.length() - 1)){
             c++;
@@ -38,7 +38,7 @@ public:
 
         return min(min(a, b) ,c);
     }
-
+    //dynamic programming
     int minDistance(string word1, string word2) {
         int l1 = word1.length(); 
         int l2 = word2.length();

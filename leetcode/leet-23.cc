@@ -14,6 +14,7 @@ struct ListNode {
 
 class Solution {
 public:
+    //origin solution, Over time limit
      ListNode* mergeKLists(vector<ListNode*>& lists) {
         ListNode *temp, *head, *pre = nullptr, *tl1, *tl2;
         int pos = 0;
@@ -57,8 +58,8 @@ public:
         return head;
     }
     
-    /**solution two, because all list is sorted linked, min heap is suit one solution**/
-    ListNode* mergeKLists2(vector<ListNode*>& lists) {
+    /**solution 2, because all list is sorted linked, min heap is suit one solution**/
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
         if(lists.size() == 0) return nullptr;
         //define a new compara that compare two element in list
         auto cmp = [](ListNode *l1, ListNode * l2){
@@ -87,8 +88,9 @@ public:
         
         return dummy->next;
     }
-    
-    ListNode* mergeKLists3(vector<ListNode*>& lists) {
+
+    /************* soluiton 3 *************/
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
         return mergeRecurse(lists, 0, (int)lists.size() - 1);
     }
     
@@ -114,5 +116,41 @@ public:
             r->next = merger2Lists(l, r->next);
             return r;
         }
+    }
+
+    /********** soluiton 4 simple merger 2 list************/
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        if(lists.empty()) return nullptr;
+        int n = lists.size();
+        while(n > 1){
+            int k = (n + 1) / 2;
+            for(int i = 0; i < n/2; i++){
+                lists[i] = merge2lists(lists[i], lists[i + k]);
+            }
+            n = k;
+        }
+        
+        return lists[0];
+    }
+    
+    ListNode* merge2lists(ListNode* list1, ListNode* list2){
+        ListNode* node = new ListNode(-1), *cur = node;
+
+        while(list1 && list2){
+            if(list1->val > list2->val){
+                cur->next = list2;
+                list2 = list2->next;
+            }else{
+                cur->next = list1;
+                list1 = list1->next;
+            }
+
+            cur = cur->next;
+        }
+
+        if(list1) cur->next = list1;
+        if(list2) cur->next = list2;
+
+        return node->next;
     }
 };
