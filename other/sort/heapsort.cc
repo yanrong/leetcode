@@ -75,7 +75,7 @@ public:
         }
     }
 
-    void builMaxHeap(vector<int>& arrray){
+    void buildMaxHeap(vector<int>& arrray){
         int size = arrray.size() - 1;
         for(int i = size / 2; i >= 1; i--){
             maxHeapify(arrray, i, size);
@@ -83,7 +83,7 @@ public:
     }
 
     void heapSort2(vector<int>& array){
-        builMaxHeap(array);
+        buildMaxHeap(array);
         for(int i = array.size() - 1; i >= 2; i--){
             swap(array[1], array[i]);
             maxHeapify(array, 1, i - 1);

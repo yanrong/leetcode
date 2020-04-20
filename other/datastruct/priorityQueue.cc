@@ -37,7 +37,7 @@ public:
         }
     }
 
-    void builMaxHeap(vector<T>& arrray){
+    void buildMaxHeap(vector<T>& arrray){
         int size = arrray.size();
         for(int i = size / 2; i >= 0; i--){
             maxHeapify(arrray, i, size);
@@ -86,7 +86,7 @@ int main(int argc, char const *argv[])
     /* code */
     priorityQueue<int> queue;
     vector<int> nums{ 23, 45, 12, 90, 18, 675, 64, 543, 89, 94};
-    queue.builMaxHeap(nums);
+    queue.buildMaxHeap(nums);
     /* delete and build the max heap
     while(!queue.empty(nums)){
         std::cout << queue.heapExtractMax(nums)<< std::endl;
@@ -94,11 +94,11 @@ int main(int argc, char const *argv[])
 
     vector<int> heap{ 23, -7, 45, 12, 90, 42, 18, 75, 81};
     vector<int> insert{57, 66, 93, 78, 104, 14, 18, 258, 89, 394};
-    queue.builMaxHeap(heap);
+    queue.buildMaxHeap(heap);
     for(int i = 0; i < insert.size(); i++){ 
         //insert and build heap
         queue.maxHeapInsert(heap, insert[i]);
-        queue.builMaxHeap(heap);
+        queue.buildMaxHeap(heap);
         std::cout <<"max = " << queue.heapMaximun(heap)<< std::endl;
         /*
         for(auto h : heap){
