@@ -10,10 +10,10 @@ class Solution {
 public:
     //sliding window
     /**
-    ** 1.初始，left 指针和 right指针都指向 S的第一个元素.
-    ** 2.将 right针右移，扩张窗口，直到得到一个可行窗口，亦即包含 T 的全部字母的窗口。
+    ** 1.初始，left 指针和 right指针都指向 S 的第一个元素.
+    ** 2.将 right 指针右移，扩张窗口，直到得到一个可行窗口，亦即包含 T 的全部字母的窗口。
     ** 3.得到可行的窗口后，将 left 指针逐个右移，若得到的窗口依然可行，则更新最小窗口大小。
-    ** 4.若窗口不再可行，则跳转至 2 。
+    ** 4.若窗口不再可行，则跳转至 2 
     */
     string minWindow(string s, string t) {
         unordered_map<char, int> window, needs;
@@ -106,5 +106,48 @@ public:
             }
         }
         return maxLen == INT_MAX ? "" : s.substr(start, maxLen);
+    }
+};
+
+//official solution
+class Solution{
+public:
+    //leetcode offical solution
+    string minWindow(string s, string t) {
+        unordered_map<char, int> hash, windowCounts;
+        int required, left, right, formed;
+        for(int i = 0; i < t.size(); i++){
+            hash[t[i]]++;//init the window map
+        }
+
+        required = hash.size();
+        left = right = 0; //left and right point to start position 
+        formed = 0;
+        vector<int> ans{-1, 0}; // length and start, In JAVA length, start , right get [start, right] 
+
+        while(right < s.length()){
+            char c = s.at(right);
+            windowCounts[c]++; // count the each char frequency in s
+            if(hash.count(c) && windowCounts[c] == hash[c]){
+                formed++; // if the char exist in window, add the current valid window size
+            }
+            //if the current window size equal to pattern window
+            while(left <= right && formed == required){
+                c = s.at(left);
+                if(ans[0] == -1 || right - left  + 1 < ans[0]){ // get the minmun size
+                    ans[0] = right - left + 1;
+                    ans[1] = left;
+                }
+                windowCounts[c]--; //remove the char from the current window 
+                if(hash.count(c) && windowCounts[c] < hash[c]){
+                    //after remove it from current window, it's counter is less than the pattern window's counter
+                    formed--; //reduce the current window valid size
+                }
+                left++; //move the left to right, resize to small
+            }
+            right++;
+        }
+
+        return ans[0] == -1 ? "" : s.substr(ans[1],  ans[0]);
     }
 };
