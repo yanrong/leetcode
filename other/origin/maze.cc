@@ -52,7 +52,7 @@ bool mgpath(int xi,int yi,int xe,int ye)//(xi,yi)->(xe,ye)
             dir++;
             i = top.x + direct[dir][0];
             j = top.y + direct[dir][1];
-            if(i  <0 || i > xe || j < 0|| j > ye){
+            if(i < 0 || i > xe || j < 0|| j > ye){
                 continue;
             }
             //printf("x-y %d, %d --- dir %d\n", i, j, dir);
