@@ -32,7 +32,7 @@ public:
             for(int j = i; j >= 0; j--){
                 //get smallest height
                 minHeight = min(minHeight, heights[j]);
-                //calaulate the max area
+                //calculate the max area
                 maxArea = max(maxArea, minHeight * (i - j + 1));
             }
         }
@@ -45,7 +45,7 @@ public:
         stack<int> st;
         heights.push_back(0); // to stop at last one
         for(int i = 0; i < heights.size(); i++){
-            //get an ascening range
+            //get an ascending range
             if(st.empty() || heights[st.top()] < heights[i]){
                 st.push(i);
             }else{
@@ -104,7 +104,7 @@ public:
 };
 
 
-// leetcode recommand
+// leetcode recommend
 // Largest Rectangle in Histogram
 // Stack solution, O(NlogN) solution
 class SegTreeNode {
