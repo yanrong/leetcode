@@ -56,7 +56,9 @@ public:
                 //the stack hold the index, so i - 1 - st.top is right distance
                 //if we pop to stack empty, that like i - 0
                 maxArea = max(maxArea, heights[top] *(st.empty() ? i : (i - 1 - st.top())));
-                i--; // why i--
+                // why i-- for i is suspending at heights[st.top()] <= heights[i],
+                // the loop will increment 1 in i in each step
+                i--; 
             }
         }
         return maxArea;
