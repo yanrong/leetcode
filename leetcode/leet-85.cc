@@ -38,8 +38,8 @@ public:
                 st.pop();
                 
                 ret = max(ret, height[top] * (st.empty() ? i :  i - 1 - st.top()));
-                //why i--, in the circly loop, the positon i always increment 1 when finish
-                //this loop, but we need the i susupend at this position, so i-- and i++ make
+                //why i--, in the circle loop, the position i always increment 1 when finish
+                //this loop, but we need the i suspend at this position, so i-- and i++ make
                 //the i is suspending at pop
                 i--;
             }
@@ -62,7 +62,7 @@ public:
                     int width = dp[i][j];
 
                     for(int k = i; k >= 0; k--){
-                        //the area is  dependent on the minimun vertical width
+                        //the area is depend on the minimun vertical width
                         width = min(width, dp[k][j]);
                         //i - k + 1 is the height at the matrix[i] 
                         maxArea = max(maxArea,  width * (i - k + 1));
@@ -99,8 +99,8 @@ public:
             //update left
             for(int j = 0; j < n; j++){
                 // left reach to as far as possbile, after we have been process the previous row
-                // data, the left should be choice the max one(bacuse the area is depende on minimun one)
-                // in this way righ[j] - left[j] will be the minmum one
+                // data, the left should be choice the max one(because the area is depend on minimun one)
+                // in this way right[j] - left[j] will be the minmum one
                 if(matrix[i][j] == '1'){
                     left[j] = max(cur_left, left[j]);
                 }else{
@@ -110,7 +110,7 @@ public:
             } 
             //update right
             for(int j = n - 1; j >= 0; j--){
-                //right always choice the minimun one, in order to get maximun value in righ[j] - left[j]
+                //right always choice the minimun one, in order to get maximun value in right[j] - left[j]
                 if(matrix[i][j] == '1'){
                     right[j] = min(cur_right, right[j]);
                 }else{
@@ -161,8 +161,8 @@ public:
                 st.pop();
                 
                 ret = max(ret, height[top] * (st.empty() ? i :  i - 1 - st.top()));
-                //why i--, in the circly loop, the positon i always increment 1 when finish
-                //this loop, but we need the i susupend at this position, so i-- and i++ make
+                //why i--, in the circle loop, the position i always increment 1 when finish
+                //this loop, but we need the i suspend at this position, so i-- and i++ make
                 //the i is suspending at pop
                 i--;
             }
