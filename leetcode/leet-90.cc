@@ -1,4 +1,6 @@
 #include <vector>
+#include <algorithm>
+using std::sort;
 using std::vector;
 
 class Solution {
@@ -69,15 +71,53 @@ public:
         }
         return res;
     }
-    vector<vector<int> > subsets(vector<int> &nums) {
-        vector<vector<int> > res(1);
+    /*
+    *对于上一个处理的数字，然后判定当前的数字和上面的是否相同，若不同，则循环还是从0到当前子集的个数，若相同，
+    *则新子集个数减去之前循环时子集的个数当做起点来循环，这样就不会产生重复
+    */
+    vector<vector<int> > subsetsWithDup(vector<int> &nums) {
+        vector<vector<int> > res;
         sort(nums.begin(), nums.end());
+        res.push_back(vector<int>());
+        int k = 0, j;
         for (int i = 0; i < nums.size(); ++i) {
             int size = res.size();
-            for (int j = 0; j < size; ++j) {
+            j = 0;
+            if(i > 0 && nums[i - 1] == nums[i]){
+                j = size - k;
+            }
+            k = 0; // k record how many data has been add to
+            for ( ; j < size; ++j) {
                 res.push_back(res[j]);
                 res.back().push_back(nums[i]);
+                k++;
             }
+        }
+        return res;
+    }
+    //zhihu
+    vector<vector<int> > subsetsWithDup(vector<int> &nums) {
+        vector<vector<int>> res;
+        sort(nums.begin(), nums.end());
+        res.push_back(vector<int>());
+        int dupCount, size;
+        for(int i = 0; i < nums.size(); i++){
+            dupCount = 0;
+            //判断当前是否是重复数字，并且记录重复的次数
+            while(i + 1 < nums.size() && nums[i + 1] == nums[i]){
+                dupCount++;
+                i++;
+            }
+            size = res.size();
+             //遍历之前几个结果的每个解
+            for(int j = 0; j < size; j++){
+                vector<int> list = res[j];
+                for(int t = 0; t <= dupCount; t++){
+                    //每次在上次的结果中多加 1 个重复数字
+                    list.push_back(nums[i]);
+                    res.push_back(list);
+                }
+            }   
         }
         return res;
     }
