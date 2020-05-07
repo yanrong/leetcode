@@ -26,7 +26,7 @@ public:
 
         return G[n];
     }
-
+    //solution from genius guy
     int numTrees(int n) {
         vector<int> dp(n + 1);
         dp[0] = dp[1] = 1;
@@ -37,7 +37,7 @@ public:
         }
         return dp[n];
     }
-
+    //leetcode solution
     int numTrees(int n) {
         long C = 1;
         for(int i = 0; i < n; i++){
@@ -45,7 +45,7 @@ public:
         }
         return C;
     }
-
+    //origin solution
     int numTrees(int n) {
         long C = 1;
         for(int i = 1; i <= n; i++){
