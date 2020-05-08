@@ -52,8 +52,22 @@ public:
         }
         return true;
     }
-
+    //solution 3 from genius guy
     bool isValidBST(TreeNode* root) {
-        help()
+        TreeNode *pre = nullptr;
+        return helper(root, pre);
+    }
+    bool helper(TreeNode* root, TreeNode*& pre){
+        if(root == nullptr){
+            return true;
+        }
+        //visit left child
+        if(!helper(root->left, pre)) return false;
+        //if has previous node, copare the value
+        if(pre != nullptr && pre->val >= root->val) return false;
+        //get the left child
+        pre = root;
+        //visit the right child
+        return helper(root->right, pre);
     }
 };
