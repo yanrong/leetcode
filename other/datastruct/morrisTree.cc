@@ -10,11 +10,11 @@ struct TreeNode {
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 /**
-**µ±Ç°½ÚµãÓÃcur±íÊ¾
-** 1£©Èç¹ûcurÎÞ×óº¢×Ó£¬curÏòÓÒÒÆ¶¯cur=cur->right
-** 2£©Èç¹ûcurÓÐ×óº¢×Ó£¬ÕÒµ½cur×ó×ÓÊ÷µÄ×îÓÒ½Úµã£¬¼ÇÎªmostright£º
-**     Èç¹ûmostrightµÄÓÒÖ¸ÕëÎª¿Õ ÈÃÆäÖ¸Ïòcur,mostright->right=cur£¬curÏò×óÒÆ¶¯£¬cur=cur->left;
-**     Èç¹ûmostrightµÄÓÒÖ¸ÕëÖ¸Ïòcur ÈÃÆäÖ¸Ïò¿Õ mostright->right=null curÏòÓÒÒÆ¶¯£¬cur=cur->right;
+**å½“å‰èŠ‚ç‚¹ç”¨curè¡¨ç¤º
+** 1ï¼‰å¦‚æžœcuræ— å·¦å­©å­ï¼Œcurå‘å³ç§»åŠ¨cur=cur->right
+** 2ï¼‰å¦‚æžœcuræœ‰å·¦å­©å­ï¼Œæ‰¾åˆ°curå·¦å­æ ‘çš„æœ€å³èŠ‚ç‚¹ï¼Œè®°ä¸ºmostrightï¼š
+**     å¦‚æžœmostrightçš„å³æŒ‡é’ˆä¸ºç©º è®©å…¶æŒ‡å‘cur,mostright->right=curï¼Œcurå‘å·¦ç§»åŠ¨ï¼Œcur=cur->left;
+**     å¦‚æžœmostrightçš„å³æŒ‡é’ˆæŒ‡å‘cur è®©å…¶æŒ‡å‘ç©º mostright->right=null curå‘å³ç§»åŠ¨ï¼Œcur=cur->right;
 **/
 class morrisTree{
 public:
@@ -74,7 +74,7 @@ public:
     }
 
     void morrisPostorder(TreeNode* root){
-        if(root != nullptr){
+        if(root == nullptr){
             return;
         }
         TreeNode *cur = root, *mostRight = nullptr;
@@ -119,4 +119,27 @@ public:
         }
         return prev;
     }
+    /**
+    void printEdge(TreeNode *root){
+        TreeNode *tail = rightReverse(root);
+        TreeNode *cur = tail;
+        while(cur != nullptr){
+            cout<<cur->val<< " ";
+            cur = cur->right;
+        }
+        rightReverse(tail);
+    }
+
+    TreeNode* rightReverse(TreeNode *root){
+        TreeNode *cur = nullptr, *prev = nullptr;
+        
+        while(root != nullptr){
+            cur = root->right;
+			root->right = prev;
+			prev = root;
+            root = cur;
+        }
+        return prev;
+    }
+    **/
 };

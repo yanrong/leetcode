@@ -45,7 +45,7 @@ public:
             st.pop();
             //compare the value, BTS left < root < right, so root->val must less the inorder
             if(root->val <= inorder) return false;
-            //bacause we take this node as root , update the inorder
+            //because we take this node as root , update the inorder
             inorder = root->val;
             //visit the right child
             root = root->right;
