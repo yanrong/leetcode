@@ -2,7 +2,7 @@
 
 int gcd(int a, int b)
 {
-	reurn b ? gcd(b,a%b) : a;
+	return b ? gcd(b,a%b) : a;
 }
 
 /**

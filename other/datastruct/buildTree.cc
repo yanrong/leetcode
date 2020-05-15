@@ -1,14 +1,14 @@
 #include <vector>
 #include<iostream>
- 
+
 using namespace std;
- 
+
 struct binary_tree_node{
 	int data;
 	binary_tree_node* left_child;
 	binary_tree_node* right_child;
 };
- 
+
 void create_tree(binary_tree_node* &tree, vector<int>& a, int index)
 {
 	if (index >= a.size())
@@ -45,8 +45,8 @@ void create_tree_2(binary_tree_node* &head, vector<int>& v, int index)
 		}
 		head = new binary_tree_node;
 		head->data = v[index];
-		buildBinTree(head->left_child, v, 2 * index + 1);
-		buildBinTree(head->right_child, v, 2 * index + 2);
+		create_tree_2(head->left_child, v, 2 * index + 1);
+		create_tree_2(head->right_child, v, 2 * index + 2);
 	}
 }
 
@@ -58,7 +58,7 @@ void inorder(binary_tree_node* root)
 	inorder(root->left_child);
 	inorder(root->right_child);
 }
- 
+
 int main()
 {
 	vector<int> p{ 0, 1, 2, 3, 4, 5, 6 };

@@ -1,15 +1,15 @@
 #include <iostream>
 #include <vector>
- 
+
 using namespace std;
- 
+
 typedef int dataType;
 typedef struct Node
 {
 	dataType val;
 	struct Node *left;
 	struct Node *right;
- 	Node():val(-1), left(nullptr), right(nullptr){}
+	Node():val(-1), left(nullptr), right(nullptr){}
 	Node(dataType _val): val(_val), left(nullptr), right(nullptr){}
 }TreeNode;
 
@@ -21,10 +21,10 @@ void MorrisInOrderTraverse(Node *head)
 	{
 		return;
 	}
- 
+
 	Node *p1 = head;
 	Node *p2 = NULL;
- 
+
 	while (p1 != NULL)
 	{
 		p2 = p1->left;
@@ -49,7 +49,7 @@ void MorrisInOrderTraverse(Node *head)
 		p1 = p1->right;
 	}
 }
- 
+
 // Morris前序遍历 (根 -> 左 -> 右)
 void MorrisPreOrderTraverse(Node *head)
 {
@@ -57,10 +57,10 @@ void MorrisPreOrderTraverse(Node *head)
 	{
 		return;
 	}
- 
+
 	Node *p1 = head;
 	Node *p2 = NULL;
- 
+
 	while (p1 != NULL)
 	{
 		p2 = p1->left;
@@ -89,13 +89,13 @@ void MorrisPreOrderTraverse(Node *head)
 		p1 = p1->right;
 	}
 }
- 
+
 // 逆序右边界
 Node* reverseEdge(Node *head)
 {
 	Node *pre = NULL;
 	Node *next = NULL;
- 
+
 	while(head != NULL)
 	{
 		next = head->right;
@@ -103,16 +103,16 @@ Node* reverseEdge(Node *head)
 		pre = head;
 		head = next;
 	}
- 
+
 	return pre;
 }
- 
+
 // 逆序打印左子树右边界
 void printEdge(Node *head)
 {
 	Node *lastNode = reverseEdge(head);
 	Node *cur = lastNode;
- 
+	
 	while (cur != NULL)
 	{
 		cout<<cur->val<<" ";
@@ -120,7 +120,7 @@ void printEdge(Node *head)
 	}
 	reverseEdge(lastNode);
 }
- 
+	
 // Morris后序遍历 (左 -> 右 -> 根)
 void MorrisPostOrderTraverse(Node *head)
 {
@@ -128,10 +128,10 @@ void MorrisPostOrderTraverse(Node *head)
 	{
 		return;
 	}
- 
+	
 	Node *p1 = head;
 	Node *p2 = NULL;
- 
+	
 	while (p1 != NULL)
 	{
 		p2 = p1->left;
@@ -162,7 +162,7 @@ void buildBinTree(Node **head)
 {
 	dataType _val;
 	cin>>_val;
- 
+
 	if (_val == -1)
 	{
 		*head = NULL;
@@ -257,7 +257,7 @@ public:
         }
         printEdge(root);
     }
-  	
+
     void printEdge(TreeNode *root){
         root = rightReverse(root);
         TreeNode *cur = root;
@@ -298,7 +298,6 @@ void buildBinTree(Node* &head, vector<int>& v, int index)
 /********************************************************************
 ***** Classic traverse
 ********************************************************************/
- 
 void preOrder(Node* root){
 	if (nullptr == root)
 		return;
