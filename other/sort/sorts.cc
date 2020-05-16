@@ -137,14 +137,63 @@ public:
             data[rightEnd] = tmp[rightEnd];
         }
     }
+    /**
+    *counting sort from Introduction to Algorithms 3rd chapter 8.2 page 215
+    * the data number should in [0, k]
+    */
+    void countingSort(vector<T>& data, int max){
+        int n = data.size();
+        vector<T> counts(max + 1, 0);
+        vector<T> ret(n);
+        //counter the each data's number
+        for(int i = 0; i < n; i++){
+            counts[data[i]]++;
+        }
+        //counter how many data before the index j, after than the counts[data[i]]-1 is
+        //right place to place the data 
+        for(int j = 1 ; j < max; j++){
+            counts[j] = counts[j] + counts[j - 1];
+        }
+        //get the result
+        for(int j = n - 1; j >= 0; j--){
+            //get the right index counts[data[j]] - 1 to place data[j] 
+            ret[counts[data[j]] - 1] = data[j];
+            counts[data[j]] = counts[data[j]] - 1;
+        }
+
+        data.assign(ret.begin(), ret.end());
+    }
+    
+    /**
+     * bucket sort, only for learning, Integer data type only
+    **/
+    void bucketSort(vector<T>& data){
+        vector<vector<T>> bucket(10);
+        
+        for(auto d : data){
+            bucket[d/10].push_back(d);
+        }
+        
+        for(int i = 0; i < bucket.size(); i++){
+            sort(bucket[i].begin(), bucket[i].end());
+        }
+        data.clear();
+        for(auto& ele : bucket){
+            for(auto &i : ele){
+                data.push_back(i);
+            }
+        }
+    }
 };
 
 int main()
 {
     sortsAlgo<int> algo;
-	vector<int> data{0,-5,3,60,9,88,52,61,37,44};
-	algo.mergerSort(data);
-	for(auto d : data){
+	vector<int> data{1,0,3,60,9,88,52,61,37,44};
+    vector<int> data1{2,5,3,0,2,3,0,3};
+	//algo.mergerSort(data);
+    algo.bucketSort(data1);
+	for(auto d : data1){
         std::cout << d << " ";
     }
 	std::cout<<std::endl;
