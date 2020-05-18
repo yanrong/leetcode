@@ -4,6 +4,7 @@ using namespace std;
 
 class Solution {
 public:
+    //original solution, not very good
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
         int mid;
         vector<int>::const_iterator i, j;
@@ -34,12 +35,19 @@ public:
             return (mergerNums[mid] + mergerNums[mid - 1])/2.0 ;
         }
     }
-
+    //official solution
+    /* if we split the data with the condition len(left) = len(right) and max(left) <= min(right)
+    ** then the middle is the (max(left) + min(right)) / 2
+    ** there must be two condition is required 1. a[i] >= b[j - 1] and a[i - 1] <= b[j]
+    ** 2. if the n and m is length of two data, and the respectively split index is i and j
+    ** if cut in the middle, there have i + j = (m + n) - (i + j) or ( m - i + n - j + 1)
+    ** for i in [0, m) j = (m + m + 1) / 2 - i;
+    **/
     double findMedianSortedArrays2(vector<int>& nums1, vector<int>& nums2) {
         int m, n, iMin, iMax, halfLen,minRight, maxLeft, i, j;
 
         if(nums1.size() > nums2.size()){
-            vector<int> t = nums1; nums1 = nums2; nums2 = t;
+            swap(nums1, nums2);
         }
         m = nums1.size();
         n = nums2.size();
@@ -48,20 +56,22 @@ public:
         while(iMin <= iMax){
             i = (iMin + iMax) / 2;
             j = halfLen - i;
-
+            //is to small
             if(i < iMax && nums2[j - 1] > nums1[i]){
                 iMin = i + 1;
             }else if(i > iMin && nums1[i - 1] > nums2[j]){
-                iMax = i - 1;
-            }else{
+                iMax = i - 1;//it too big
+            }else{ //prefect
                 maxLeft = 0;
+                //i == 0 or j == 0 to judge the border
                 if(i == 0){
                     maxLeft = nums2[j - 1];
                 }else if(j == 0){
                     maxLeft = nums1[i - 1];
-                }else{
+                }else{//in normal condition, select the small 
                     maxLeft = max(nums1[i - 1], nums2[j - 1]);
                 }
+                //if the data length is odd, the current one is the middle data
                 if(((m + n) % 2) == 1) return maxLeft;
 
                 minRight = 0;
@@ -72,7 +82,7 @@ public:
                 }else{
                     minRight = min(nums1[i], nums2[j]);
                 }
-
+                //get the middle that the data length is even
                 return (maxLeft + minRight) / 2.0;
             } 
         }
