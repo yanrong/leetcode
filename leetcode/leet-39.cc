@@ -38,14 +38,14 @@ public:
     }
     //dp programming tooooo slow
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-	    unordered_map<int, set<vector<int>>>dict;
+        unordered_map<int, set<vector<int>>>dict;
         vector<vector<int>>ans;
 
-	    for (int i = 1; i <= target; i++){
+        for (int i = 1; i <= target; i++){
             //scan every element in candidates
-	        for (int it : candidates){ 
+            for (int it : candidates){ 
                 //type i - i 
-	    	    if (i == it){ 
+                if (i == it){ 
                     dict[i].insert(vector<int>{it});
                 }else if (it < i){
                     //if now target i is greate the number in candidates
@@ -55,13 +55,13 @@ public:
 	    	    	    ivec.push_back(it); // recorder candidates[i]
 	    	    	    sort(ivec.begin(), ivec.end()); // rearrange result
                         //if it is unique, store it set
-	    	    	    if(dict[i].count(ivec) == 0) dict[i].insert(ivec);
-	    	        }
+                        if(dict[i].count(ivec) == 0) dict[i].insert(ivec);
+                    }
                 }
             }
         }
 	    //the last set has been try all combination, and add the unique result, get it
-	    for (auto it : dict[target]) ans.push_back(it);
-	    return ans;
+        for (auto it : dict[target]) ans.push_back(it);
+        return ans;
     }
 };

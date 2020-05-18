@@ -22,21 +22,8 @@ public:
                 j--;
             }
             swap(nums[i], nums[j]);
-            //swap it
-            /*
-            temp = nums[i];
-            nums[i] = nums[j];
-            nums[j] = temp;*/
+
         }
-        // then reverse sub set from i to last one
-        /*k = nums.size() - 1;
-        i++;
-        while(i < k){
-            temp = nums[i];
-            nums[i] = nums[k];
-            nums[k] =  temp;
-            i++; k--;
-        }*/
         reverse(nums.begin() + i + 1, nums.end());
     }
 };

@@ -1,5 +1,9 @@
 #include <string>
+#include <algorithm>
+using std::max;
 using std::string;
+using std::min;
+
 class Solution {
 public:
     //dynamic programming
@@ -9,7 +13,7 @@ public:
         int len = s.size();
         if (len <= 1)//a char is palindromic
             return s;
-        bool dp[len][len]={false}; //[i][j] represent substring from i to j is palindromic string
+        bool dp[len][len] = {false}; //[i][j] represent substring from i to j is palindromic string
         for (int i = 0; i < len; i++)
         {
             dp[i][i] = true; //sub string from index i to i must be palindromic
@@ -27,7 +31,7 @@ public:
         for(int k = 3; k <= len; k++){ //init span, a and increment to whole length
             for(int i = 0; i <= len - k; i++){
                 int j = i + k - 1;
-                if(s[i]== s[j] && dp[i+1][j-1]){ //judge from third char, if it is equal and sub string is parlindromic
+                if(s[i] == s[j] && dp[i + 1][j - 1]){ //judge from third char, if it is equal and sub string is parlindromic
                     dp[i][j] = true;
                     pos = i;
                     max_len  = k;
@@ -35,10 +39,9 @@ public:
             }
         }
 
-    return s.substr(pos, max_len);
+        return s.substr(pos, max_len);
     }
     //expand in center
-    /*********************************************/
     string longestPalindrome(string s) {
         int len = s.size();
         if(len <= 1) return s;
@@ -151,5 +154,4 @@ public:
 
         return s.substr(pos, max_len - 1); //border plus 1
     }
-    /*********************************************/
 };

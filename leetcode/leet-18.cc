@@ -1,5 +1,6 @@
 #include <vector>
 #include <algorithm>
+#include <iostream>
 using namespace std;
 
 class Solution {
@@ -47,6 +48,7 @@ int main(int argc, char const *argv[])
     vector<vector<int>> ret = s.fourSum(v, 0);
     for(vector<int> v : ret){
         for(int i : v) cout << " " << i;
-    cout <<endl;}
+        cout <<endl;
+    }
     return 0;
 }

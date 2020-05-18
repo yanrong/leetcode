@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
@@ -12,7 +13,7 @@ public:
         int index = 0;
 
         for(int i = 0; i < s.length();){
-           if(s.substr(i, 1) == rmKey[index]){
+            if(s.substr(i, 1) == rmKey[index]){
                 ret += digKey[index];
                 i++;
             }else if(s.substr(i, 2) == rmKey[index]){

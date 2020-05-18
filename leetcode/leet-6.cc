@@ -30,7 +30,7 @@ public:
         return ret;
     }
     
-    string convert1(string s, int numRows) {{
+    string convert1(string s, int numRows) {
         string ret;
         bool goingDown = false;
         int curRow =0;

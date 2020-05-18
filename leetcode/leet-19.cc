@@ -6,7 +6,7 @@ typedef struct ListNode {
     ListNode *next;
     ListNode(int x) : val(x), next(NULL) {}
 }ListNode;
- 
+
 class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {

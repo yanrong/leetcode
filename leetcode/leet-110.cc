@@ -28,7 +28,7 @@ public:
     }
     
     int getDepth(TreeNode* tree){
-        if(tree == 0){
+        if(tree == nullptr){
             return 0;
         }
         return max(getDepth(tree->left), getDepth(tree->right)) + 1;

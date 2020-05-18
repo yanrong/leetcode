@@ -99,7 +99,7 @@ public:
     //https://en.wikipedia.org/wiki/Maximum_subarray_problem
     int maxSubArray(vector<int>& nums) {
         int maxEndHere = nums[0], maxSoFar = nums[0];
-        for(int i = 1; i < nums.size; i++){
+        for(int i = 1; i < nums.size(); i++){
             maxEndHere = max(nums[i], maxEndHere + nums[i]);
             maxSoFar = max(maxSoFar, maxEndHere);
         }
@@ -125,5 +125,4 @@ public:
         }
         return sum;
     }
-    //---------------------------------------------------------------------
 };

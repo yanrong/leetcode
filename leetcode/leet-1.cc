@@ -13,7 +13,7 @@ public:
             hash[nums[i]] = i;
         }
 
-        for(int i =0; i < nums.size(); i++){
+        for(int i = 0; i < nums.size(); i++){
             int tt = target - nums[i];
             if(hash.count(tt) && hash[tt] != i){
                 ret.push_back(i);

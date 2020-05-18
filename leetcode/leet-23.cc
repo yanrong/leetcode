@@ -15,7 +15,7 @@ struct ListNode {
 class Solution {
 public:
     //origin solution, Over time limit
-     ListNode* mergeKLists(vector<ListNode*>& lists) {
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
         ListNode *temp, *head, *pre = nullptr, *tl1, *tl2;
         int pos = 0;
 

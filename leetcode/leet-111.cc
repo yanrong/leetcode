@@ -48,17 +48,17 @@ public:
             return 1;
         }
         
-        int depth = INT_MIN;
+        int depth = INT_MAX;
         if(root->left != nullptr){
             //depth always is the minimun depth of right 
-            depth = min(minDepth(root->right), depth);
+            depth = min(minDepth(root->left), depth);
         }
         if(root->right != nullptr){
             //get the minimun left and right
             depth = min(minDepth(root->right), depth);
         }
-        //get the minimum child
-        return depth;
+        //get the minimum child, add root
+        return depth + 1;
     }
     //official solution 3,BFS
     int minDepth(TreeNode* root) {

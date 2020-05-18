@@ -29,7 +29,6 @@ public:
             m = k;
         }
         
-        
         while(m > 0){
             phead = prev = head; cur = head->next;
             while(cur->next != nullptr){

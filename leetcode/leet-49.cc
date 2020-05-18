@@ -5,6 +5,7 @@
 using std::swap;
 using std::vector;
 using std::string;
+using std::to_string;
 using std::unordered_map;
 
 class Solution {

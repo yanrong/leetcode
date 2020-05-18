@@ -32,7 +32,7 @@ public:
             tmp.clear();
             tmp.resize(i);
             for(int j = 1; j < i + 1; j++){
-                tmp[ j - 1] = data(i, j);
+                tmp[j - 1] = data(i, j);
             }
             ret.push_back(tmp);
         }
@@ -51,9 +51,9 @@ public:
     vector<vector<int>> generate(int numRows) {
         vector<vector<int>> res;
         for(int i=0; i < numRows; i++){
-            vector<int> tmp(i+1, 1);
-            for(int j=1; j < i; j++){
-                tmp[j] = res[i-1][j-1] + res[i-1][j];
+            vector<int> tmp(i + 1, 1);
+            for(int j = 1; j < i; j++){
+                tmp[j] = res[i - 1][j - 1] + res[i - 1][j];
             }
             res.push_back(tmp); 
         }

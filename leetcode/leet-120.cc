@@ -39,7 +39,7 @@ public:
 
         for(int i = 1; i < n; i++){
             for(int j = 0; j <= triangle[i - 1].size(); j++){
-                if(j == 0){//if the last data
+                if(j == 0){//if left most data, the previous layer has no [j - 1]
                     triangle[i][j] = triangle[i - 1][j] + triangle[i][j];
                 }else if (j == i){
                     triangle[i][j] = triangle[i - 1][j - 1] + triangle[i][j];
