@@ -6,6 +6,7 @@ using std::endl;
 
 class Solution {
 public:
+    //original solution
     int reverse(int x) {
         long ret = 0 ;
 
@@ -15,8 +16,8 @@ public:
         }
         return ret > INT_MAX || ret < INT_MIN ? 0 : ret;
     }
+
     //official solution
-    
     int reverse2(int x){
         int rev = 0;
         while (x != 0){
@@ -36,6 +37,6 @@ public:
 int main(int argc, char* argv[])
 {
     Solution s;
-    cout << "\ns " << s.reverse(-6469)<<endl;
+    cout << "\ns " << s.reverse(-21474836)<<endl;
     return 0;
 }

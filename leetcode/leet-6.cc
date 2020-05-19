@@ -19,7 +19,7 @@ public:
         for(int i = 0; i < numRows; i++){ //calculate each row
             for(int j = 0; i + j < n; j += cycleLen){ // j equal to a cycle zigzag, i + j will skip to next zigzag
                 ret += s[i + j]; // each zigzag, add colum char to ret.
-                if(i != 0 && i != numRows - 1 && (j + cycleLen - i) < n){ //if row number is not  0 or numRows -1 and
+                if(i != 0 && i != numRows - 1 && (j + cycleLen - i) < n){ //if row number is not 0 or numRows -1 and
                     /*cycle - i is distance from column char to zigzag char,
                     j start from 0, j + cycle -i is exactly zigzag char place*/
                     ret += s[j + cycleLen - i];
@@ -29,13 +29,13 @@ public:
         
         return ret;
     }
-    
+    //leetcode official solution
     string convert1(string s, int numRows) {
         string ret;
         bool goingDown = false;
-        int curRow =0;
+        int curRow = 0;
         vector<string> rows(min(numRows, (int)s.size()));
-        
+        //the process emulate the human being actiong
         for(char c : s){
             rows[curRow] += c;
             if(curRow == 0 || curRow == (numRows - 1)) goingDown = !goingDown;

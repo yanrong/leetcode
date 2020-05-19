@@ -13,7 +13,7 @@ public:
         int len = s.size();
         if (len <= 1)//a char is palindromic
             return s;
-        bool dp[len][len] = {false}; //[i][j] represent substring from i to j is palindromic string
+        bool dp[len][len] = {false}; //dp[i][j] represent substring from i to j is palindromic string
         for (int i = 0; i < len; i++)
         {
             dp[i][i] = true; //sub string from index i to i must be palindromic
@@ -125,33 +125,39 @@ public:
     string longestPalindrome(string s)
     {
         string str = getString(s); 
-        int max_len = 0;
-
-        int id , pos, mx = 0;
-        int p[str.length()] = {0};
-
-        for (int i = 1; i < str.length(); i++)
+        int maxLen = 0, n = str.length();
+        //mx is the right most border, id is the right most center index of palindrome 
+        int id, pos, mx = 0;
+        //p[i] indicate the radius length of palindrome that take the s[i] as center
+        //p[i] - 1 exactly is the palindrome length of original string
+        int p[n] = {0};
+        //the index from 1 to last one, the first char is fill with other char
+        for (int i = 1; i < n; i++)
         {
-            if (i < mx)
+            if (i < mx){ //if in range
+                //as if we have know the palindrome radius length from index 0 to i - 1
+                //the index i palindrome length radius is the i mirror index palindrome length
+                // and mx - i 
                 p[i] = min(p[2 * id - i], mx - i);
-            else
+            } else { // out of range
                 p[i] = 1;
-
-            while (str[i - p[i]] == str[i + p[i]])
+            }
+            //expand the in center index i 
+            while (str[i - p[i]] == str[i + p[i]]) {
                 p[i]++;
-
-            if (mx < i + p[i])
-            {
+            }
+            //if the new radius is out of current right most, update the all 
+            if (mx < i + p[i]) {
                 id = i;
                 mx = i + p[i];
             }
-
-            if(max_len > p[i] - 1){
+            //get the max length
+            if(maxLen > p[i] - 1) {
                 pos = i;
-                max_len = p[i];
+                maxLen = p[i];
             }
         }
 
-        return s.substr(pos, max_len - 1); //border plus 1
+        return s.substr(pos, maxLen - 1); //border plus 1
     }
 };
