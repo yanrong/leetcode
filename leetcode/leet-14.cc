@@ -6,54 +6,76 @@ using namespace std;
 
 class Solution {
 public:
+    //original solution 1, too redundancy
     string longestCommonPrefix(vector<string>& strs) {
-        int l1, l2, max_length;
+        int l1, l2, maxLength;
         if(strs.size() == 0) return "";
         if(strs.size() == 1) return strs[0];
+        //alway chose the maxPrefix as the common prefix
         string maxPrefix = strs[0];
 
         for(int i = 1; i != strs.size(); i++){
-            max_length = l1 = l2 = 0;
+            maxLength = l1 = l2 = 0;
             while(l1 < maxPrefix.length() && l2 < strs[i].length()){
                 if(maxPrefix[l1] == strs[i][l2]){
-                    max_length++;
+                    maxLength++;
                     l1++; l2++;
                 }else{
                     break;
                 }
             }
-            maxPrefix = maxPrefix.substr(0, max_length);
+            maxPrefix = maxPrefix.substr(0, maxLength);
         }
 
         return maxPrefix;
     }
-
-    string longestCommonPrefix2(vector<string>& strs) {
+    
+    //official solution 2 compare each char 
+    string longestCommonPrefix(vector<string>& strs) {
         if(strs.size() == 0) return "";
-
+        //the solution is genius idea, we take the strs[0] as the compare object
+        //longest common prefix is dependent on the strs[0] or the sub-string get from the strs[0]
         for(int i = 0; i < strs[0].size(); i++){
-            char c = strs[0].at(i);
+            char c = strs[0].at(i); // take the each char in strs[0] tow examine the rest string
             for(int j = 1; j < strs.size(); j++){
+                //if we get the smallest strs[i] or the c is not contian in a string
                 if(i == strs[j].size() || c != strs[j].at(i)){
-                    return strs[0].substr(0, i);
+                    return strs[0].substr(0, i); // get the sub string in range [0, i - 1]
                 }
             }
         }
-        return strs[0];
+        return strs[0]; // we finish the whole compare and strs[0] must be the right answer
     }
-};
 
-class Solution {
-public:
-    /***divide and search***/
+    /*** official Solution 3 divide and search***/
     string longestCommonPrefix(vector<string>& strs) {
         if(strs.size() == 0) return "";
 
         return longestCommonPrefixRecurse(strs, 0, strs.size() - 1);
     }
+    string longestCommonPrefixRecurse(vector<string>& strs, int left, int right){
+        if(left == right){
+            return strs[left];
+        }else{
+            int mid = (left + right) / 2;
+            string lcpLeft = longestCommonPrefixRecurse(strs, left, mid);
+            string lcpRight = longestCommonPrefixRecurse(strs, mid + 1, right);
 
-    /**binary seach**/
-    string longestCommonPrefix2(vector<string>& strs) {
+            return commonPrefix(lcpLeft, lcpRight);
+        }
+    }
+    string commonPrefix(string left, string right){
+        int minLen = min(left.size(), right.size());
+        for(int i = 0 ; i < minLen; i++){
+            if(left.at(i) != right.at(i)){
+                return left.substr(0, i);
+            }
+        }
+        return left.substr(0, minLen);
+    }
+    
+    /**official solution 4 binary seach scan in vertical**/
+    string longestCommonPrefix(vector<string>& strs) {
         if(strs.size() == 0) return "";
 
         int minLen = INT_MAX;
@@ -73,32 +95,6 @@ public:
 
         return strs[0].substr(0, (low + hight) / 2);
     }
-private:
-    /****devide and search****/
-    string longestCommonPrefixRecurse(vector<string>& strs, int left, int right){
-        if(left == right){
-            return strs[left];
-        }else{
-            int mid = (left + right) / 2;
-            string lcpLeft = longestCommonPrefixRecurse(strs, left, mid);
-            string lcpRight = longestCommonPrefixRecurse(strs, mid + 1, right);
-
-            return commonPrefix(lcpLeft, lcpRight);
-        }
-    }
-    
-    string commonPrefix(string left, string right){
-        int minLen = min(left.size(), right.size());
-        for(int i = 0 ; i < minLen; i++){
-            if(left.at(i) != right.at(i)){
-                return left.substr(0, i);
-            }
-        }
-
-        return left.substr(0, minLen);
-    }
-
-    /***binary search***/
     bool isCommonPrefix(vector<string>& strs, int len){
         string str1 = strs[0].substr(0, len);
         for(int i = 1; i < strs.size(); i++){
@@ -106,7 +102,6 @@ private:
                 if(strs[i][j] != str1[k]) return false;
             }
         }
-
         return true;
     }
 };

@@ -23,7 +23,7 @@ public:
 					while (left < right && nums[left] == nums[left + 1]){//skip same
                         left++;
                     }
-                    //while (left < right && nums[right--] == nums[right]);//skiip same
+                    //while (left < right && nums[right--] == nums[right]);//skip same
 					while (left < right && nums[right] == nums[right - 1]){//skip same
                         right--;
                     }

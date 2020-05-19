@@ -4,6 +4,7 @@ using namespace std;
 
 class Solution {
 public:
+    //origian solution, too naive, i do not get the point al all
     bool isPalindrome(int x) {
         string tmp;
         int len, i;
@@ -31,6 +32,30 @@ public:
         if( i != len / 2) return false;
         return true;
     }
+    //other edition
+    bool isPalindrome(int x) {
+        string tmp;
+        int len;
+        bool flag = true;
+
+        if(x >= 0){
+            while(x){
+                tmp += x % 10 + '0';
+                x /= 10;
+            }
+        }else{
+            return false;
+        }
+
+        len = tmp.length();
+        for(int i = 0; i < len / 2; i++){
+            if(tmp[i] != tmp[len - 1 - i]){
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
     // official solution
     bool isPalindrome(int x) {
         /*the analyse case as belowing
@@ -42,7 +67,7 @@ public:
         if(x < 0 || (x % 10 == 0 && x != 0)){
             return false;
         }
-        
+        //if the x's length is odd, ret / 10 == x, if even x == ret
         while(x > ret){
             ret = ret * 10 + x % 10;
             x /= 10;
