@@ -4,6 +4,7 @@ using namespace std;
 
 class Solution {
 public:
+    //solution 1 backtrace
     vector<string> generateParenthesis(int n) {
         vector<string> ret;
         genMatch(ret, "", n, n);
@@ -20,22 +21,22 @@ public:
         if(bl > 0 && bl <= br) genMatch(ret, result + "(", bl - 1, br); 
         if(br > 0 ) genMatch(ret, result + ")", bl, br - 1);
     }
-};
 
-//official solution
-class Solution {
-public:
-    /****first solution***/
+    /****official solution 2***/
     vector<string> generateParenthesis(int n) {
         vector<string> combinations;
-        string temp(2*n, (char)0);
+        //for the n pairs , totoal length is 2 * n
+        string temp(2 * n, (char)0);
         generateAll(temp, 0, combinations);
         return combinations;
     }
     void generateAll(string& s, int pos, vector<string>& result){
         if(pos == s.length()){
-            if(valid(s)) result.push_back(s);
-        }else{
+            if(valid(s)){//if the generate string is valid
+                result.push_back(s);
+                return;
+            }
+        }else{//generate the all possible combination
             s[pos]='(';
             generateAll(s, pos + 1, result);
             s[pos] = ')';
@@ -49,10 +50,10 @@ public:
             else balance--;
             if(balance < 0) return false;
         }
-
+        //a valid backet string, balance is zero 
         return balance == 0;
     }
-    /****second solution backtrace*****/
+    /****official solution backtrace*****/
     vector<string> generateParenthesis(int n) {
         vector<string> ret;
         backTrace(ret, "", 0, 0, n);

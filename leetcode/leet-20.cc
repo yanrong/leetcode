@@ -7,9 +7,10 @@ using namespace std;
 
 class Solution {
 public:
+    //original solution
     bool isValid(string s) {
         vector<char> stack;
-        unordered_map<char,char> mapChar = {
+        unordered_map<char, char> mapChar = {
             {'(', ')' },
             {'[', ']' },
             {'{', '}' },
@@ -23,15 +24,19 @@ public:
                 stack.push_back(i);
             }else{
                 top = stack.back();
+                //if the char is exist get it or returm '#'
                 tmp =  mapChar.count(top) ? mapChar[top] : '#';
-                if(tmp == i) stack.pop_back();
-                else stack.push_back(i);
+                if(tmp == i) {// if the current char is equal to stack top data. pop it
+                    stack.pop_back();
+                } else {//else push it to stack
+                    stack.push_back(i);
+                }
             }
         }
-
+        //if the stack is empty, the string is valid
         return stack.empty();
     }
-
+    //official soluton
     bool isValid(string s) {
         stack<char> charStack;
         unordered_map<char,char> mapChar = {

@@ -9,13 +9,19 @@ typedef struct ListNode {
 
 class Solution {
 public:
+    //Original solution???
     ListNode* removeNthFromEnd(ListNode* head, int n) {
         ListNode *temp, *node;
         int len = 0;
         if(head == nullptr) return nullptr;
         if(n <= 0) return head;
 
-        temp = head; node = head;
+        temp = node = head;
+        /**
+         * genius idea, the len is total length of the linked list, in normal case, len - n is
+         * the right place we needed, from the len == n start to counter , th finally index is
+         * from end to start with length n 
+         * **/
         for( ; temp; temp = temp->next, len++){
             if(len > n) node = node->next;    
         }
@@ -31,7 +37,7 @@ public:
 
         return head;
     }
-    
+    //official solution
     ListNode* removeNthFromEnd(ListNode* head, int n) {
         ListNode *dummy = new ListNode(0);
         dummy->next = head;
