@@ -61,7 +61,7 @@ public:
     /**solution 2, because all list is sorted linked, min heap is suit one solution**/
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         if(lists.size() == 0) return nullptr;
-        //define a new compara that compare two element in list
+        //define a compare function that place the l1 and l2 in right order in the given container
         auto cmp = [](ListNode *l1, ListNode * l2){
             return (l1->val > l2->val);
         };
@@ -89,7 +89,7 @@ public:
         return dummy->next;
     }
 
-    /************* soluiton 3 *************/
+    /************* solution 3 *************/
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         return mergeRecurse(lists, 0, (int)lists.size() - 1);
     }
@@ -98,7 +98,7 @@ public:
         if(left > right) return nullptr;
         if(left == right) return lists[left];
         
-        int mid = left + (right - left) / 2;
+        int mid = (right + left) / 2;
         ListNode *l = mergeRecurse(lists, left, mid);
         ListNode *r = mergeRecurse(lists, mid + 1, right);
         
@@ -118,25 +118,27 @@ public:
         }
     }
 
-    /********** soluiton 4 simple merger 2 list************/
+    /********** solution 4 simple merger 2 list************/
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         if(lists.empty()) return nullptr;
         int n = lists.size();
         while(n > 1){
-            int k = (n + 1) / 2;
-            for(int i = 0; i < n/2; i++){
+            int k = (n + 1) / 2; // (n + 1) to avoid divide ignore the LSB 1
+            for(int i = 0; i < n / 2; i++){// start at index 0 to middle range
+                //merge the result in lists[i]
                 lists[i] = merge2lists(lists[i], lists[i + k]);
             }
+            //next merger length is k
             n = k;
         }
-        
+        //the finally result must be in lists[0]
         return lists[0];
     }
     
     ListNode* merge2lists(ListNode* list1, ListNode* list2){
         ListNode* node = new ListNode(-1), *cur = node;
 
-        while(list1 && list2){
+        while(list1 != nullptr && list2 != nullptr){
             if(list1->val > list2->val){
                 cur->next = list2;
                 list2 = list2->next;
@@ -148,8 +150,8 @@ public:
             cur = cur->next;
         }
 
-        if(list1) cur->next = list1;
-        if(list2) cur->next = list2;
+        if(list1 != nullptr) cur->next = list1;
+        if(list2 != nullptr) cur->next = list2;
 
         return node->next;
     }

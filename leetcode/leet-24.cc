@@ -10,6 +10,7 @@ struct ListNode {
 
 class Solution {
 public:
+    //original solution, swap the value, no prefect
     ListNode* swapPairs(ListNode* head) {
         ListNode *ret, *post, *pre;
         int temp;
@@ -44,18 +45,21 @@ public:
         return secondNode;
     }
     
+    //official solution
     ListNode* swapPairs(ListNode* head) {
         ListNode* dummy = new ListNode(-1);
         dummy->next = head;
         ListNode* prev = dummy;
         while(head && head->next){
+            //get the head and head next value
             ListNode* first = head;
             ListNode* second = head->next;
             
             prev->next = second;
+            //skip to next swap data
             first->next = second->next;
             second->next = first;
-            
+            //update the prev and head
             prev = first;
             head = first->next;
         }

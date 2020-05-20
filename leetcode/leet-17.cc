@@ -30,7 +30,7 @@ public:
         }
         return result;
     }
-    //solutin 2 DFS leetcode official solution
+    //solution 2 DFS leetcode official solution
     vector<string> letterCombinations(string digits) {
         vector<string> result;
         vector<string> strMap{"", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
@@ -40,7 +40,7 @@ public:
     }
 
     void backTrace(vector<string> &result, string digits, int index, string res, vector<string> strMap){
-        if(index == digits.size()){//if the res lenght is equal to orignal digits length, finish trace
+        if(index == digits.size()){//if the res length is equal to original digits length, finish trace
             //avoid "" output error
             if(res.length() != 0) result.push_back(res); 
             return ;

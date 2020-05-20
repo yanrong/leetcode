@@ -25,7 +25,7 @@ public:
     /****official solution 2***/
     vector<string> generateParenthesis(int n) {
         vector<string> combinations;
-        //for the n pairs , totoal length is 2 * n
+        //for the n pairs , total length is 2 * n
         string temp(2 * n, (char)0);
         generateAll(temp, 0, combinations);
         return combinations;
@@ -37,7 +37,7 @@ public:
                 return;
             }
         }else{//generate the all possible combination
-            s[pos]='(';
+            s[pos] = '(';
             generateAll(s, pos + 1, result);
             s[pos] = ')';
             generateAll(s, pos + 1, result);
@@ -50,7 +50,7 @@ public:
             else balance--;
             if(balance < 0) return false;
         }
-        //a valid backet string, balance is zero 
+        //a valid bracket string, balance is zero 
         return balance == 0;
     }
     /****official solution backtrace*****/

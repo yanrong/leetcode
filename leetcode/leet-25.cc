@@ -7,6 +7,7 @@ struct ListNode {
 
 class Solution {
 public:
+    //original solution 1 ??? very odds idea
     ListNode* reverseKGroup(ListNode* head, int k) {
         ListNode *post, *pre, *ret;
         int i = 1, temp;
@@ -32,7 +33,6 @@ public:
 
         return ret;
     }
-
     void subReverse(ListNode* left, ListNode *right, int k){
         ListNode *lmark,*rmark, *spre, *spost;
         int i = 1, temp;
@@ -53,7 +53,7 @@ public:
         subReverse(lmark, rmark, k - 2);
     }
     
-    /**other solution**/
+    /**solution 2**/
     ListNode* reverseKGroup(ListNode* head, int k) {
         if(head != nullptr && k == 1) return head;
         
@@ -61,11 +61,11 @@ public:
         ListNode *pre = dummy, *cur = head;
         dummy->next = head;
         
-        for(int i = 1; cur; i++){
+        for(int i = 1; cur != nullptr; i++){
             if(i % k == 0){//at each reverse node, crate a function return reverse node
                 pre = reverse1Group(pre, cur->next);
                 cur = pre->next;//after finished a reverse, skip to next one group
-            }else{//if it is not reverse node, skip to next
+            }else{//if it is not reverse node, move to next
                 cur = cur->next;
             }
         }
@@ -73,18 +73,21 @@ public:
         return dummy->next;
     }
     
-    ListNode* reverse1Group(ListNode* pre, ListNode* next){
-        ListNode* last = pre->next; 
-        ListNode* cur = last->next; 
+    ListNode* reverse1Group(ListNode* head, ListNode* last){
+        ListNode* prev = head->next; 
+        ListNode* cur = prev->next; 
         /**insert each one before last node with range from cur to a node before next **/
-        while(cur != next){
-            last->next = cur->next;
-            cur->next = pre->next;
-            pre->next = cur;
-            cur = last->next;
+        while(cur != last){
+            //exchange the prev and cur node place
+            prev->next = cur->next;
+            cur->next = head->next;
+            //head is static, head next point to cur
+            head->next = cur;
+            //cur point the prev next
+            cur = prev->next;
         }
-        
-        return last;
+        //after the reverse, last one is head
+        return prev;
     }
     
     /***solution 3***/
@@ -110,7 +113,7 @@ public:
         return dummy->next;
     }
 
-    /*******WARRNING just kinds of similar, but no for this soluiton*********/
+    /*******WARNING just kinds of similar, but no for this solution*********/
     ListNode* reverseKGroup(ListNode* head, int k) {
         ListNode *ret, *temp, *thead;
         int i = 0;
