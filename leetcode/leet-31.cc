@@ -17,13 +17,15 @@ public:
 
         if(i >= 0){ // if have one
             int j = nums.size() - 1;
-            //fine one is less or equal it
+            //fine one greate to nums[i]
             while(j >= 0 && nums[j] <= nums[i]){
                 j--;
             }
+            //swap it
             swap(nums[i], nums[j]);
 
         }
+        //reverse the whole sequence
         reverse(nums.begin() + i + 1, nums.end());
     }
 };

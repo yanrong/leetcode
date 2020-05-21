@@ -50,6 +50,7 @@ public:
         if(s.empty() || words.empty()) return ret;
 
         elen = words[0].length();
+        //counts as a key-value record the need string and should exist times
         for(auto ws : words) counts[ws]++;
 
         for(int i = 0; i < elen; i++){
@@ -76,7 +77,7 @@ public:
                         count--;
                         left += elen;
                     }
-                }else{
+                }else{//if the word is not exist, skip it
                     freq.clear();
                     count = 0;
                     left = j + elen;
