@@ -15,13 +15,13 @@ public:
         map<string, int> counts;
         string tempStr;
         int elen, slen, nums;
-
+        //if empty return
         if(s.length() == 0 || words.size() == 0) return ret;
 
         elen = words[0].length(); 
         slen = s.length(); 
         nums = words.size();
-        
+        //k - v string and counter
         for(string s : words) counts[s]++; //init every words times shoule be in string, only a time
         //slen - nums * elen represent a whole words combine string
         for(int i = 0; i <= slen - nums * elen; i++){

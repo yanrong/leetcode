@@ -6,6 +6,7 @@ using std::endl;
 
 class Solution {
 public:
+    //original solution, c++ STL
     int removeElement(vector<int>& nums, int val) {
         if(nums.empty()) return 0;
         int j = 0;

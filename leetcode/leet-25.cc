@@ -93,52 +93,24 @@ public:
     /***solution 3***/
     ListNode* reverseKGroup(ListNode* head, int k) {
         ListNode* dummy = new ListNode(-1);
-        ListNode* pre = dummy, *cur = pre;
+        ListNode* phead = dummy, *first = phead;
         int num = 0;
         dummy->next = head;
         //count the length
-        while(cur = cur->next) num++;
+        while(first = first->next) num++;
         
         while(num >= k){
-            cur = pre->next;//move the cur to next group initial node
+            first = phead->next;//first node
+            //insert the data before cur
             for(int i = 1; i < k; i++){
-                ListNode* t = cur->next; //mark the temp node that be insert into afpter pred
-                cur->next = t->next; //
-                t->next = pre->next; //skip cur node and t node order
-                pre->next = t; // link it
+                ListNode* second = first->next; //second node
+                first->next = second->next; 
+                second->next = phead->next; //exchange second and first node
+                phead->next = second; //after swap head point to second node
             }
-            pre = cur;//after all reverse, cur is the last one, so pre point to it.
+            phead = first;//after all reverse, first is the last one,
             num -= k; // reduce the counter
         }
         return dummy->next;
-    }
-
-    /*******WARNING just kinds of similar, but no for this solution*********/
-    ListNode* reverseKGroup(ListNode* head, int k) {
-        ListNode *ret, *temp, *thead;
-        int i = 0;
-
-        if(head == nullptr) return nullptr;
-        if(k < 2) return head;
-
-        ret = new ListNode(-1);
-        thead = head;
-        while(thead && i < k){
-            temp = thead;
-            thead = thead->next;
-            temp->next = ret->next;
-            ret->next = temp;
-            i++; 
-        }
-        
-        if(thead != nullptr){
-            temp = ret->next;
-            while(temp->next){
-                temp = temp->next;
-            }
-            temp->next = thead;
-        }
-
-        return ret->next;
     }
 };

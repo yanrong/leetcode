@@ -11,7 +11,7 @@ class Solution {
 public:
     /**KMP solution**/
     int strStr(string haystack, string needle) {
-        int i = 0, j = 0;
+        int i = 0, j = -1;
         vector<int> kmp(needle.length() + 1, 0);
         if(haystack.empty() && !needle.empty()) return -1;
         if(needle.empty()) return 0;
@@ -39,8 +39,7 @@ public:
         while(j < s.length()){
             if(i == -1 || s[i] == s[j]){
                 i++; j++;
-                if(s[i] == s[j]) kmp[j] = kmp[i];
-                else kmp[j] = i;
+                kmp[j] = i;
             }else{
                 i = kmp[i];
             }    
@@ -67,14 +66,16 @@ public:
             h = (h * a + char2int(i, haystack)) % modules;
             ref_h = (ref_h * a + char2int(i, needle)) % modules;
         }
-
+        //if the needle is empty
         if(h == ref_h) return 0;
-        // const value to be used often : a**L % modulus
+        // const value to be used often : a**L % modulus, total base
         long al = 1;
         for(int i = 1; i <= l; i++) al = (al * a) % modules;
 
         for(int start = 1; start < n - l + 1; start++){
             // compute rolling hash in O(1) time
+            // char2int(start - 1, haystack) * al calculate the string s MSB value, discard it
+            // char2int(start + l - 1, haystack) a new char add to end, map to int value and add it
             h = (h * a - char2int(start - 1, haystack) * al + char2int(start + l - 1, haystack)) % modules;
             if(h == ref_h) return start;
         }
@@ -95,8 +96,9 @@ public:
     /**official solution violence enumeration all possible sub-string**/
     int strStr(string haystack, string needle) {
         int l = needle.size(), n = haystack.size();
-        
+        //from 0 to  (n - 1) - l 
         for(int start = 0; start < n - l + 1; start++){
+            //get the sub string with lengh and judge if equal to needle
             if(haystack.substr(start, l) == needle){
                 return start;
             }

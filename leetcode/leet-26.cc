@@ -6,6 +6,7 @@ using std::endl;
 
 class Solution {
 public:
+    //original solution, STL
     int removeDuplicates(vector<int>& nums) {
         int mark;
         if(nums.size() < 2) return nums.size();
@@ -21,7 +22,7 @@ public:
 
         return nums.size();
     }
-    //more fast better design
+    //more fast better design, original solution
     int removeDuplicates(vector<int>& nums) {
         if (nums.empty()) return 0;
         int i = 0;
