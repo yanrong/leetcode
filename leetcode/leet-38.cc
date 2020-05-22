@@ -26,7 +26,7 @@ public:
         int counter;
         string ret="";
         if(n <= 1) return string("1");
-
+        //boring design
         string tmp = countAndSay2(n - 1);
         counter = 1;
         for(int i = 1; i < tmp.length(); i++){

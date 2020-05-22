@@ -7,7 +7,7 @@ using std::unordered_set;
 
 class Solution {
 public:
-    //genius solution, bu not O(n)
+    //original solution,required constant extra space. space complexity is O(n)
     int firstMissingPositive(vector<int>& nums) {
         unordered_set<int> result(nums.begin(), nums.end());
         int res;
@@ -27,7 +27,9 @@ public:
          * nums[nums[i] - 1] != nums[i] indicate whether need exchange them in correct place
          **/
         for(int i = 0; i < n; i++){
+            //if the key - map value in right relation
             if(nums[i] == i + 1) continue;
+            //otherwise, if the nums[i] in valid range and need change
             while(nums[i] > 0 &&  nums[i] < n && nums[nums[i] - 1] != nums[i]){
                 swap(nums[i], nums[nums[i] - 1]);
             }
@@ -45,8 +47,9 @@ public:
         int n = nums.size();
         int contains = 0;
 
-        if( n == 1) return 2;
+        if(n == 1) return 2;
         for(int i = 0; i < n; i++){
+            //counter the times of number 1
             if(nums[i] == 1){
                 contains++;
                 break;

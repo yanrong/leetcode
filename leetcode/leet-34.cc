@@ -7,6 +7,7 @@ using std::endl;
 
 class Solution {
 public:
+    //original solution ??
     vector<int> searchRange(vector<int>& nums, int target) {
         vector<int> ret(2, -1);
         int left, right, mid ,pos = -1;
@@ -75,7 +76,7 @@ public:
 
         return ret;
     }
-    
+    //solutin 3  not O(lg(n))
     vector<int> searchRange(vector<int>& nums, int target) {
         vector<int> ret(2, -1);
         // find the index of the leftmost appearance of `target`.

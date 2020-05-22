@@ -4,11 +4,13 @@ using std::vector;
 class Solution {
 public:
     void solveSudoku(vector<vector<char>>& board) {
-        //key  valid
+        //the sudoku is 9 row and 9 column, we try number 0 to 9 fill it
+        //default all is false, not anything filled in.
         bool rows[9][10] = {false}, cols[9][10] = {false}, boxes[9][10] = {false};
 
         for(int i = 0; i < 9; i++){
             for(int j = 0; j < 9; j++){
+                //init the char not is '.', 
                 if(board[i][j] != '.'){
                     int num = board[i][j] - '0';
                     int box_index = (i / 3) * 3 + j / 3;
@@ -29,11 +31,12 @@ public:
             r++; // get next row
             if(r == 9) return true; //it all finished return
         }
-        int box_index = (r / 3) * 3 + c / 3; // box id
+        
         if(board[r][c] == '.'){
+            int box_index = (r / 3) * 3 + c / 3; // box id
             for(int n = 1; n < 10; n++){ // try number from 1 to 9
                 //if number n is valid to add to board
-                bool isValid = !(rows[r][n]  || cols[c][n] || boxes[box_index][n]);
+                bool isValid = !(rows[r][n] || cols[c][n] || boxes[box_index][n]);
                 if(isValid){//mark the this unique
                     rows[r][n] = true;
                     cols[c][n] = true;
@@ -60,9 +63,10 @@ public:
     }
 };
 
+//official solution
 class Solution {
 public:
-    bool rows[9][10]={false}, cols[9][10] = {false}, boxes[9][10] = {false};
+    bool rows[9][10] = {false}, cols[9][10] = {false}, boxes[9][10] = {false};
     bool isSudokuSolved = false;
 
     void backTrace(vector<vector<char>>& board, int row, int col){
@@ -115,7 +119,7 @@ public:
         for(int i = 0; i < 9; i++){
             for(int j = 0; j < 9; j++){
                 idx = (i / 3) * 3 + j / 3;//box id
-                //if number is valid numver, mark it
+                //if number is valid number, record it
                 if(board[i][j] != '.'){
                     int n = board[i][j] - '0';
                     rows[i][n] = cols[j][n] = boxes[idx][n] = true;

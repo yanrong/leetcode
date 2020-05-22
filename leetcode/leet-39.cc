@@ -23,7 +23,8 @@ public:
             ret.push_back(tmp);//if we get a valid result, store it
             return; //return immediately
         }
-
+        //cut the redundancy, the array is sort ascending, it the array[i] is large than target
+        //we need't search the data after the index i
         for(int i = pos; i < candidates.size() && candidates[i] <= target; i++){
             tmp.push_back(candidates[i]);
             //generate much back trace that cadidates[i] is less equal target 
@@ -36,6 +37,40 @@ public:
             tmp.pop_back();
         }
     }
+
+    /**other solution 1 from leetcode **/
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ret;
+        vector<int> tmp;
+        //sort the number, for cut redundante
+        sort(candidates.begin(), candidates.end());
+        backTrace(ret, candidates, tmp, 0, target);
+        return ret;
+    }
+
+    void backTrace(vector<vector<int>>& ret, vector<int>& candidates, vector<int> tmp, int pos, int target){
+        if(target < 0){
+            //we search the all possible combination, if the target less than 0, invalid outcome
+            return;
+        }
+        if(target == 0){
+            ret.push_back(tmp);//if we get a valid result, store it
+            return; //return immediately
+        }
+
+        for(int i = pos; i < candidates.size(); i++){
+            tmp.push_back(candidates[i]);
+            //generate much back trace that cadidates[i] is less equal target 
+            backTrace(ret, candidates, tmp, i, target - candidates[i]);
+            /**
+            *why need pop the top element in stack, just imagine this is the last recurse(reach leaf node)
+            *we need go to parent(pop the top) and recurse the other sibling node, next loop indace i had 
+            *been pointe to next element in candidates, perfectly simulate the whole backtrace. 
+            **/
+            tmp.pop_back();
+        }
+    }
+
     //dp programming tooooo slow
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         unordered_map<int, set<vector<int>>>dict;
