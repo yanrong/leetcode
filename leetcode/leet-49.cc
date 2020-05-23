@@ -19,7 +19,7 @@ public:
             tmp = strs[i];
             sort(tmp.begin(), tmp.end());
 
-            if(strMap.count(tmp)){
+            if(strMap.count(tmp) != 0){
                 strMap[tmp].push_back(strs[i]);
             }else{
                 keys.push_back(tmp);
@@ -31,6 +31,26 @@ public:
             result.push_back(strMap[keys[i]]);
         }
         return result;
+    }
+    //other solution
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        int size=strs.size();
+        if(size==0) return {};
+        vector<vector<string>> res;
+        unordered_map<string,int> tmp;
+        string s;
+        int num=0;
+        for(int i=0;i<size;++i){
+            s=strs[i];
+            sort(s.begin(),s.end());
+            if(tmp.count(s)>0){
+                res[tmp.find(s)->second].push_back(strs[i]);
+            }else{
+                tmp[s]=num++;
+                res.push_back(vector<string>{strs[i]});
+            }
+        }
+        return res;
     }
     //official solution
     vector<vector<string>> groupAnagrams(vector<string>& strs) {

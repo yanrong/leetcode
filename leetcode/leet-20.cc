@@ -24,7 +24,7 @@ public:
                 stack.push_back(i);
             }else{
                 top = stack.back();
-                //if the char is exist get it or returm '#'
+                //if the char is exist get it or return'#'
                 tmp =  mapChar.count(top) ? mapChar[top] : '#';
                 if(tmp == i) {// if the current char is equal to stack top data. pop it
                     stack.pop_back();
@@ -36,7 +36,7 @@ public:
         //if the stack is empty, the string is valid
         return stack.empty();
     }
-    //official soluton
+    //official solution
     bool isValid(string s) {
         stack<char> charStack;
         unordered_map<char,char> mapChar = {

@@ -33,7 +33,7 @@ public:
     int trap(vector<int>& height) {
         int ret = 0, size = height.size();
         if(height.size() == 0) return 0;
-        
+        //use the O(n) space to store the height, 
         vector<int> leftMax(size), rightMax(size);
         //from left to right, and assign the first as assume maximun in left side
         leftMax[0] = height[0];
@@ -54,8 +54,8 @@ public:
     /*
     * stack algorithms:
     * if the current element in array height is smaller than the element in top of stack, push it
-    * otherwise, that means the value and the value in stack is  a value of trap water
-    * so pop the top one, and get calculate the trap capacity
+    * otherwise, that mean the current value and the value in stack is a value of trap water
+    * so pop the top one, and get calculate the trap capacity, Calculate each LAYER valid capacity
     */
     int trap(vector<int>& height) {
         int ret = 0, current = 0; //indext to search whole height[i]

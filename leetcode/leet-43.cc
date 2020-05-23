@@ -6,7 +6,7 @@ using std::to_string;
 
 class Solution {
 public:
-    //chinese traditional arithmetic algo
+    //original solution chinese traditional arithmetic algo
     string multiply(string num1, string num2) {
         string ret = "", temp = "";
         int carry, subCarry;
@@ -18,22 +18,25 @@ public:
         if(num2 == "0") return "0";
         for(int i = num2.size() - 1; i >= 0; i--){
             temp = ""; carry = 0; t = 0;
+            //use the nums2[i] * nums1[j]
             for(int j = num1.size() - 1; j >= 0; j--){
                 t = (num2[i] - '0') * (num1[j] - '0') + carry;
                 temp = to_string(t % 10) + temp ;
                 carry = t / 10;
             }
             if(carry) temp = to_string(carry) + temp;
-
+            //fill the enough zero at end to add all multiply result
             for(int k = num2.size() - 1; k > i; k--){
                 temp += "0";
             }
             
-            if(ret.size() == 0){
+            if(ret.size() == 0){//if in first time, ret = temp
                 ret = temp;
-            }else{
+            }else{// add the ret and temp
                 subCarry = 0;
+                //from the end to begin add the the string
                 for(int m = ret.size() - 1, n = temp.size() - 1; m >= 0 || n >= 0; m--, n--){
+                        //if the ret has not enough bits to add, default is '0'
                         t = ((m < 0 ? '0' : ret[m]) - '0') + (temp[n] - '0') + subCarry;
                         temp[n] = t % 10 + '0';
                         subCarry = t / 10;
@@ -71,7 +74,7 @@ public:
                 result[i + j] += temp / 10; // i + j keep the msb
             }
         }
-        
+        //from the LSB to MSB add the each bit
         for (int i = 0; i < result.size() - 1; i++) {
             if (flag && result[i] == 0) continue; // skip the zero before the first valid number
             flag = false;

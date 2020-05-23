@@ -18,10 +18,10 @@ public:
     * the origin string is supposed in ordered(maybe need sort first), 
     * the first step about the main frame of permulate is swap the data in 
     * [start] to each other in origin data, the backtrace generat the data 
-    * that fixed the each data in index [start]. in same way, repeate to last one.
+    * that fixed the each data in index [start]. in same way, repeat to last one.
     * 
-    * the tree digram is from root the leaft, but recurse first reache leaft,
-    * and backtrace to parent node, and continue to recurse untill finish all work.
+    * the tree digram is from root the leaf, but recurse first reach leaf,
+    * and backtrace to parent node, and continue to recurse until finish all work.
     */
     void backTrace(vector<vector<int>>& ret, vector<int>& nums, int start, int depth){
         if(start == depth){
@@ -56,7 +56,7 @@ public:
         }
 
         for(int i = 0; i < nums.size(); i++){
-            if(!used.count(i)){//trim the duplicate data
+            if(used.count(i) == 0){//trim the duplicate data
                 used.insert(i);
                 tmp.push_back(nums[i]);
                 backTrace(ret, nums, tmp, used, depth + 1);

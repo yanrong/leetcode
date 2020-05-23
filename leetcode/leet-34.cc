@@ -76,7 +76,7 @@ public:
 
         return ret;
     }
-    //solutin 3  not O(lg(n))
+    //solution 3  not O(lg(n))
     vector<int> searchRange(vector<int>& nums, int target) {
         vector<int> ret(2, -1);
         // find the index of the leftmost appearance of `target`.

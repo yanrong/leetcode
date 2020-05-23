@@ -29,7 +29,7 @@ public:
                 swap(matrix[i][j], matrix[j][i]);
             }
         }
-
+        //reverse the data in each row
         for(int i = 0; i < size; i++){
             reverse(matrix[i].begin(), matrix[i].end());
         }
@@ -40,17 +40,20 @@ public:
         vector<int> tmp(size);
         //in reverse diagonal j from zero to index before diagonal
         //the [i][j] mirror index is out of j boundary, the total length is size - 1;
-        //we also know the index of j, the mirror of j is size -1 - j
+        //we also know the index of j, the mirror of j is size - 1 - j
         for(int i = 0 ; i < size; i++){
             for(int j = 0; j < size - 1 - i ; j++){
                 swap(matrix[i][j], matrix[size - 1 - j][size - 1 - i]);
             }
         }
-
+        //swap each row
         for(int i = 0; i < size / 2; i++){
-            tmp = matrix[i];
-            matrix[i] =  matrix[size - 1 - i];
-            matrix[size - 1 - i] =  tmp;
+            /**
+            ** tmp = matrix[i];
+            ** matrix[i] =  matrix[size - 1 - i];
+            ** matrix[size - 1 - i] =  tmp;
+            **/
+            swap(matrix[i], matrix[size - 1 - i]);
         }
     }
     
@@ -58,7 +61,7 @@ public:
     //rotate the four sub matrix in clockwise
     void rotate(vector<vector<int>>& matrix) {
         int n = matrix.size(), row, col, x;
-        vector<int> tmp(4);
+        vector<int> tmp(4);//hold the four rectangle data
         for(int i = 0; i < n / 2 + n % 2; i++){ //determine search depth
             for(int j = 0; j < n / 2; j++){ // search element in rectangle
                 //from index 0,0, record the index of row and col
@@ -102,7 +105,6 @@ public:
                 matrix[j][n - 1 - i] = matrix[i][j];
                 //assing second to first 
                 matrix[i][j] = temp; 
-                
                 //finished the cycle replace
             }
         }

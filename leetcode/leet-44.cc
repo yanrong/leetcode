@@ -7,13 +7,13 @@ class Solution {
 public:
     bool isMatch(string s, string p) {
         int m = s.length(), n = p.length();
-        //the substring before index i in s is matched with substring before index j in p
-        bool dp[m+1][n+1]={false};
+        //dp[i][j] is the substring before index i in s is matched with substring before index j in p
+        bool dp[m + 1][n + 1] = {false};
         if (m == 0 && n == 0) return true;
         if (n == 0) return false;
         //empty s and p is matched
         dp[0][0] = true;
-        for(int i = 1; i <= n; i++){//is string s is empty, only can match with one or more *
+        for(int i = 1; i <= n; i++){//if string s is empty, only can match with one or more *
             dp[0][i] = p[i - 1] == '*' && dp[0][i - 1] ;
         }
         
@@ -50,7 +50,7 @@ public:
                 int sIdx = 1;
                 // d[p_idx - 1][s_idx - 1] is a string-pattern match
                 // on the previous step, i.e. one character before.
-                // Find the first idx in string with the previous math.
+                // Find the first idx in string match with the p[pIdx - 1].
                 while(!dp[pIdx - 1][sIdx - 1] && (sIdx < sLen)) sIdx++;
                 // If (string) matches (pattern),
                 // when (string) matches (pattern)* as well
@@ -83,7 +83,7 @@ public:
                 pIdx++;
             }else if(pIdx < pLen && p.at(pIdx) == '*'){
                 //if pattern character ='*'
-                //check the situation when '*' matches no chararcters
+                //check the situation when '*' matches no characters
                 startIdx = pIdx;
                 sTmpIdx = sIdx;
                 pIdx++;
