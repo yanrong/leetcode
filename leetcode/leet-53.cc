@@ -24,9 +24,8 @@ public:
         }
         return sum;
     }
-    //official solution
-    //--------------------------------------------------------------------
-    //greedy algorithms
+    
+    //official solution greedy algorithms
     //every step. just choose the max one, if this is not max. skip to next
     int maxSubArray(vector<int>& nums) {
         int sum = nums[0], temp = nums[0];
@@ -58,7 +57,6 @@ public:
         //total sum
         return leftSubSum + rightSubSum;
     }
-    
     int helper(vector<int>& nums, int left, int right){
         if (left == right) return nums[left];
         //select a pivotal
@@ -71,10 +69,10 @@ public:
         int cross_sum = crossSum(nums, left, right, pivot);
         return max(max(leftSum, rightSum), cross_sum);
     }
-    
     int maxSubArray(vector<int>& nums) {
         return helper(nums, 0, nums.size() - 1);
     }
+    
     /*
     * 在整个数组或在固定大小的滑动窗口中找到总和或最大值或最小值的问题可以通过动态规划（DP）在线性时间内解决。
     * 有两种标准 DP 方法适用于数组：
@@ -95,8 +93,7 @@ public:
         return maxSum;
     }
     
-    //Kadane algorithms from wikipedia, NOT DP
-    //https://en.wikipedia.org/wiki/Maximum_subarray_problem
+    //Kadane algorithms from wikipedia, NOT DP from https://en.wikipedia.org/wiki/Maximum_subarray_problem
     int maxSubArray(vector<int>& nums) {
         int maxEndHere = nums[0], maxSoFar = nums[0];
         for(int i = 1; i < nums.size(); i++){

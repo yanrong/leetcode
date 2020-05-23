@@ -62,7 +62,7 @@ public:
         int R = n, C = matrix[0].size();
         //seen[c][r] mark the data in matrix has been visited, default is invalid 
         vector<vector<bool>> seen(R, vector<bool>(C, false));
-        //and index di indicate the directoin of current position
+        //and index di indicate the direction of current position
         vector<int> dr{0, 1, 0, -1};
         vector<int> dc{1, 0, -1, 0};
         //init row and col , di = 0 map to dr and dc mean row is static and column move to next one
@@ -78,8 +78,8 @@ public:
                 r = cr; c = cc;
             }else{
                 //if out of range
-                di = (di + 1) % 4; // calculate the directoin 
-                r += dr[di]; //
+                di = (di + 1) % 4; // calculate the direction 
+                r += dr[di]; 
                 c += dc[di]; //update row and col
             }
         }
@@ -108,7 +108,7 @@ public:
                 for(int i = r2; i > r1; i--) ret.push_back(matrix[i][c1]);
             }
             r1++; r2--; //border decrease by step
-            c1++, c2--; // 
+            c1++, c2--;  
         }
         return ret;
     }

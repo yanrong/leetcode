@@ -46,10 +46,10 @@ public:
     }
 
     bool canJump(vector<int>& nums){
-        int maxlen = 0; // ��ǰ����������Զ�±�
+        int maxlen = 0; // 当前能跳到的最远下标
         for(int i=0; i<nums.size(); ++i){
-            if(i>maxlen) return false; // ��ǰ�������±곬����֮ǰ����������Զ�±괦
-            maxlen = nums[i]+i > maxlen ? nums[i]+i : maxlen; // �ڵ�ǰ�ڵ����maxlen
+            if(i>maxlen) return false; // 当前遍历的下标超过了之前能跳到的最远下标处
+            maxlen = nums[i]+i > maxlen ? nums[i]+i : maxlen; // 在当前节点更新maxlen
             if(maxlen>=nums.size()) return true;
         }
         return true;
@@ -69,8 +69,8 @@ public:
 class Solution {
 public:
 //----------------------------------------------------------------------
-    //����ģ��ӵ�һ��λ���������λ�õ����з������ӵ�һ��λ�ÿ�ʼ��ģ�����п���������λ�ã�
-    //Ȼ��ӵ�ǰλ���ظ�������������û�а취��������ʱ��
+    //我们模拟从第一个位置跳到最后位置的所有方案。从第一个位置开始，模拟所有可以跳到的位置，
+    //然后从当前位置重复上述操作，当没有办法继续跳的时候
     bool canJump(vector<int>& nums) {
         return canJumpFromPosition(0, nums);
     }
@@ -92,8 +92,8 @@ public:
         return false;
     }
     //----------------------------------------------------------------------
-    // �Զ����µĶ�̬�滮��������ɻ��ݷ���һ���Ż������Ƿ��ֵ�һ�������Ѿ���ȷ��Ϊ�� / ��֮��
-    // ����Ͳ���ı��ˣ�����ζ�����ǿ��Լ�¼��������ÿ�β������¼���
+    // 自顶向下的动态规划可以理解成回溯法的一种优化。我们发现当一个坐标已经被确定为好 / 坏之后，
+    // 结果就不会改变了，这意味着我们可以记录这个结果，每次不用重新计算
     enum Index {GOOD, BAD, UNKOWN};
     vector<Index> memo;
     bool canJumpFromPosition(int position, vector<int>& nums, vector<Index>& memo){
@@ -119,7 +119,7 @@ public:
         return canJumpFromPosition(00, nums, memo);
     }
     //----------------------------------------------------------------------
-    //�����е�ÿ��Ԫ�أ�����Ϊ i����Ҫ�����ұ����ڵ� nums[i] ��Ԫ�ز����Ƿ��� GOOD
+    //数组中的每个元素，假设为 i，需要搜索右边相邻的 nums[i] 个元素查找是否有 GOOD
     bool canJump(vector<int>& nums) {
         vector<Index> memo(nums.size(), UNKOWN);
         memo[memo.size() - 1] = GOOD;
@@ -137,14 +137,14 @@ public:
     
     //----------------------------------------------------------------------
     /**
-    * ��ĳ��λ�ó���������ֻ��Ҫ�ҵ���һ�����Ϊ GOOD �����꣨������ѭ���������ɵã���
-    * Ҳ����˵�ҵ�����ߵ��Ǹ����ꡣ���������һ�������ı�������¼����ߵ� GOOD λ�ã�
-    * ���ǾͿ��Ա��������������飬��������ʡ������ memo ���顣
+    * 从某个位置出发，我们只需要找到第一个标记为 GOOD 的坐标（由跳出循环的条件可得），
+    * 也就是说找到最左边的那个坐标。如果我们用一个单独的变量来记录最左边的 GOOD 位置，
+    * 我们就可以避免搜索整个数组，进而可以省略整个 memo 数组。
     *
-    * �����������������ÿ���ڵ����Ǽ���Ƿ����һ����Ծ���Ե��� GOOD ��λ��
-    * ��currPosition + nums[currPosition] >= leftmostGoodIndex����������Ե��
-    * ��ǰλ��Ҳ���Ϊ GOOD ��ͬʱ�����λ�ý���Ϊ�µ�����ߵ� GOOD λ�ã�
-    * һֱ�ظ�������Ŀ�ͷ�������һ��������Ϊ GOOD ��ζ�ſ��Դӵ�һ��λ����������λ�á�
+    * 从右向左迭代，对于每个节点我们检查是否存在一步跳跃可以到达 GOOD 的位置
+    * （currPosition + nums[currPosition] >= leftmostGoodIndex）。如果可以到达，
+    * 当前位置也标记为 GOOD ，同时，这个位置将成为新的最左边的 GOOD 位置，
+    * 一直重复到数组的开头，如果第一个坐标标记为 GOOD 意味着可以从第一个位置跳到最后的位置。
     **/
     //greedy strategy
     bool canJump(vector<int>& nums) {
