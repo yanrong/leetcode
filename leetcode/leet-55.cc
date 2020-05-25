@@ -5,7 +5,7 @@ using std::min;
 
 class Solution {
 public:
-    
+    //original solution, reference the other solution
     bool canJump(vector<int>& nums) {
         int len = nums.size(), prevJump, maxJump = 0 ,start = 0, end = 1, step;
         
@@ -15,15 +15,15 @@ public:
             maxJump = 0;
             for(int j = start; j < end; j++){
                 if(maxJump < j + nums[j]){
-                    maxJump = j + nums[j];
-                    step = j;
+                    maxJump = j + nums[j]; // recrod the max jump range
+                    step = j; // record the index
                 }
             }
-            if(maxJump >= len - 1) return true;
-            if(maxJump == prevJump) break;
+            if(maxJump >= len - 1) return true; // if skip to last one or more far, skip
+            if(maxJump == prevJump) break; //if trap in somewhere, index i value is 0, this is impossbile to jump out
             prevJump = maxJump;
 
-            start = step;
+            start = step; // update the start and jump end
             end = maxJump + 1;
         }
         return false;
@@ -47,10 +47,10 @@ public:
 
     bool canJump(vector<int>& nums){
         int maxlen = 0; // 当前能跳到的最远下标
-        for(int i=0; i<nums.size(); ++i){
-            if(i>maxlen) return false; // 当前遍历的下标超过了之前能跳到的最远下标处
-            maxlen = nums[i]+i > maxlen ? nums[i]+i : maxlen; // 在当前节点更新maxlen
-            if(maxlen>=nums.size()) return true;
+        for(int i = 0; i < nums.size(); ++i){
+            if(i > maxlen) return false; // 当前遍历的下标超过了之前能跳到的最远下标处
+            maxlen = nums[i] + i > maxlen ? nums[i] + i : maxlen; // 在当前节点更新maxlen
+            if(maxlen >= nums.size()) return true;
         }
         return true;
     }
@@ -58,7 +58,7 @@ public:
     bool canJump(vector<int>& nums) {
         int k = 0;
         for (int i = 0; i < nums.size(); i++){
-            if (i > k) return false;
+            if (i > k) return false; // if can not jump out, return false
             k = max(k, i + nums[i]);
         }
         return true;
@@ -116,7 +116,7 @@ public:
         vector<Index> memo(nums.size(), UNKOWN);
         
         memo[memo.size() - 1] = GOOD;
-        return canJumpFromPosition(00, nums, memo);
+        return canJumpFromPosition(0, nums, memo);
     }
     //----------------------------------------------------------------------
     //数组中的每个元素，假设为 i，需要搜索右边相邻的 nums[i] 个元素查找是否有 GOOD

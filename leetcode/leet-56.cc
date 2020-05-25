@@ -18,10 +18,11 @@ public:
 
         for(int i = 1; i < n; i++){
             t1 = intervals[i];
-            
+            //if the new interval left range is bigger than current right most range
+            //insert the current one at back
             if(ret[ret.size() - 1][1] < intervals[i][0]){
                 ret.push_back(intervals[i]);
-            }else{
+            }else{//else there have a overlap range, update the range
                 ret[ret.size() - 1][1] = max(ret[ret.size() - 1][1], intervals[i][1]);
             }
             

@@ -3,7 +3,7 @@ using std::vector;
 
 class Solution {
 public:
-    //derive from leetcode official
+    //half original, derive from leetcode official
     vector<vector<int>> generateMatrix(int n) {
         vector<vector<int>> ret(n, vector<int>(n));
         if(n < 1) return ret; 

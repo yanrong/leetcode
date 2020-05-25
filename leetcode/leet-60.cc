@@ -32,7 +32,7 @@ public:
     //official solution
     string getPermutation(int n, int k) {
         vector<int> factorials(n);
-        vector<int> nums(1,1);
+        vector<int> nums(1, 1);
         factorials[0] = 1;
         string ret;
 
@@ -63,11 +63,10 @@ class Solution{
         string num = "123456789";
 
         vector<int> f(n, 1);
-        for (int i = 1; i < n; ++i)
+        for (int i = 1; i < n; ++i){
             f[i] = f[i - 1] *i ;
-        
+        }
         --k;
-
         for (int i = n; i >= 1; --i) {
             int j = k / f[i - 1];
             k %= f[i - 1];
