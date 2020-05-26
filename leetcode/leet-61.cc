@@ -11,6 +11,7 @@ struct ListNode {
 
 class Solution {
 public:
+    //original solution
     ListNode* rotateRight(ListNode* head, int k) {
         ListNode *phead, *cur, *prev;
         int length = 0, m;

@@ -1,6 +1,6 @@
 class Solution {
 public:
-    //fibonacci array
+    //fibonacci array original solution
     int climbStairs(int n) {
         long long p, l, t;
         p = 1, l = 1;

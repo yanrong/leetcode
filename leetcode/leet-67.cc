@@ -3,6 +3,7 @@ using std::string;
 
 class Solution {
 public:
+    //original solution
     string addBinary(string a, string b) {
         string ret;
         int a1, b1, s, c = 0;
@@ -19,7 +20,7 @@ public:
         return ret;
     }
 
-
+    //original solution
     string addBinary(string a, string b) {
         int a1, b1, s, tc, c = 0;
         char ch;

@@ -57,6 +57,7 @@ public:
                 //and make sure the string length is less maxWidth
                 for(int i = 0; i < pos.size() && s.length() < maxWidth; i++){
                     s.insert(s.begin() + pos[i], ' ');
+                    //shift the insert postion to right
                     for(int j = i + 1; j < pos.size(); j++){
                         pos[j]++;
                     }
