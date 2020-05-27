@@ -1,6 +1,7 @@
 #include <string>
 #include <stack>
 #include <vector>
+#include <cstdio>
 using std::vector;
 using std::stringstream;
 using std::string;
@@ -95,25 +96,28 @@ public:
         stack<string> st;
         string tmp = "";
         if (path.empty()) return "";
-        path += '/';
+        path += '/'; //suffix with slash
         for (int i = 0; i < path.size(); i++) {
             if (path[i] == '/') {
-                if (!tmp.empty()) {
+                if (!tmp.empty()) { //add the valid path
                     st.push(tmp);
                     tmp.clear();
                 }
+                //skip the current or continuous slash
                 while(i < path.size() && path[i] == '/') i++;
                 i--;
             } else if (path[i] == '.') {
                 int j = i;
+                //skip . or ..
                 while(j < path.size() && path[j] == '.') {
                     j++;
                 }
+                //if the skip is .., we need back to parent
                 if (j == i + 2 && (j == path.size() || path[j] == '/')) {
                     // is ".." to pop
                     if (!st.empty())
                         st.pop();
-                    i = j - 1;
+                    i = j - 1; // to next step move the i to index j
                 } else if (j == i + 1 && (j == path.size() || path[j] == '/')) {
                     // is "." do noting
                     continue;

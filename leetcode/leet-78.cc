@@ -15,9 +15,9 @@ public:
         return ret;
     }
     
-    void backTrace(vector<vector<int>>& ret, vector<int>& tmp, vector<int>& nums, int start , int ss){
+    void backTrace(vector<vector<int>>& ret, vector<int>& tmp, vector<int>& nums, int start, int size){
         //if we get the the 
-        if(tmp.size() == ss){
+        if(tmp.size() == size){
             ret.push_back(tmp);
             return;
         }
@@ -25,7 +25,7 @@ public:
         for(int i = start; i < nums.size(); i++){
             tmp.push_back(nums[i]);
             //start in next step is i + 1 to avoid to duplicate select data in the set
-            backTrace(ret, tmp, nums, i + 1, ss);
+            backTrace(ret, tmp, nums, i + 1, size);
             tmp.pop_back();
         }
     }
@@ -39,7 +39,7 @@ public:
 
         return ret;
     }
-    void backTrace(vector<vector<int>>& ret, vector<int>& nums, vector<int>& tmp, int start ){
+    void backTrace(vector<vector<int>>& ret, vector<int>& nums, vector<int>& tmp, int start){
         //from the empty set, and expand based on the former set, until the set nums's itself
         //at the beginning of step, record the current set  
         ret.push_back(tmp);

@@ -33,7 +33,7 @@ public:
         vector<vector<int>> ret;
         vector<int> nums;
         int j = 0;
-        for(int i = 1;i < k + 1; i++){
+        for(int i = 1; i < k + 1; i++){
             nums.push_back(i);
         }
         nums.push_back(n + 1);

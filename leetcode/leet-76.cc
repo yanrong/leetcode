@@ -24,7 +24,7 @@ public:
         if(s.length() == 0 || t.length() == 0){
             return "";
         }
-        //first init the t's map, counter each char counter number
+        //first init the t's map, count each char frequency
         for(auto c : t){
             needs[c]++;
         }
@@ -134,7 +134,7 @@ public:
             //if the current window size equal to pattern window
             while(left <= right && formed == required){
                 c = s.at(left);
-                if(ans[0] == -1 || right - left  + 1 < ans[0]){ // get the minmun size
+                if(ans[0] == -1 || right - left + 1 < ans[0]){ // get the minmun size
                     ans[0] = right - left + 1;
                     ans[1] = left;
                 }

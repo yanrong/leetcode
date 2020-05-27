@@ -11,7 +11,7 @@ public:
         int ret, len = 0;
         int n = nums.size();
         if(n <= 2) return nums.size();
-        
+        //extra memory is not allowed
         unordered_map<int, int>hash;
         for(int i = 0; i < n; i++){
             hash[nums[i]]++;
@@ -33,7 +33,7 @@ public:
     int removeDuplicates(vector<int>& nums) {
         int len = 0;
         for (int i = 0; i < nums.size(); i++) {
-            if (len < 2 || nums[i] != nums[len-2]){
+            if (len < 2 || nums[i] != nums[len - 2]){
                 nums[len++] = nums[i];
             }
         }

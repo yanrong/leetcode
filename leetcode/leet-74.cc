@@ -12,6 +12,7 @@ public:
         //binary search, classic algorithm 
         while(left <= right){
             pivot = (left + right) / 2;
+            //pivot / n determin which row, privot % n determin whic col
             tmp = matrix[pivot / n][ pivot % n];
             if(target == tmp) return true;
             else{
@@ -36,6 +37,8 @@ public:
             if(matrix[row][col] == target){
                 return true;
             }else{
+                //the matrix in row and col all in ascending
+                //compare the target with the [row] and [col]
                 if(matrix[row][col] > target){
                     col--;
                 }else{

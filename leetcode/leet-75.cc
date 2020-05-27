@@ -6,7 +6,7 @@ class Solution {
 public:
     /**half origin solution**/
     void sortColors(vector<int>& nums) {
-        int left = 0, right =nums.size() - 1;
+        int left = 0, right = nums.size() - 1;
         
         for(int i = left; i <= right;){
             if(nums[i] == 0){
