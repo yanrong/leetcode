@@ -40,10 +40,11 @@ public:
     //from leetcode genius
     int numDecodings(string s) {
         if (s[0] == '0') return 0;
+        //pre --- a char decode way, cur -- two char decode way and sum
         int pre = 1, cur = 1;
 
         //alike fibonacci 
-        for (int i =1; i < s.size(); i++) {
+        for (int i = 1; i < s.size(); i++) {
             int temp = cur;
             if (s[i] == '0'){
                 if (s[i - 1] == '1' || s[i - 1] == '2'){

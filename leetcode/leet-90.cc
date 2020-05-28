@@ -57,14 +57,14 @@ public:
         res.push_back(vector<int>());
         sort(nums.begin(), nums.end());
 
-        int size = 1, last = nums[0];
+        int count = 1, last = nums[0];
         for (int i = 0; i < nums.size(); ++i) {
             if (last != nums[i]) {
                 last = nums[i];
-                size = res.size();
+                count = res.size();
             }
             int newSize = res.size();
-            for (int j = newSize - size; j < newSize; ++j) {
+            for (int j = newSize - count; j < newSize; ++j) {
                 res.push_back(res[j]);
                 res.back().push_back(nums[i]);
             }
@@ -75,8 +75,8 @@ public:
     *对于上一个处理的数字，然后判定当前的数字和上面的是否相同，若不同，则循环还是从0到当前子集的个数，若相同，
     *则新子集个数减去之前循环时子集的个数当做起点来循环，这样就不会产生重复
     */
-    vector<vector<int> > subsetsWithDup(vector<int> &nums) {
-        vector<vector<int> > res;
+    vector<vector<int>> subsetsWithDup(vector<int> &nums) {
+        vector<vector<int>> res;
         sort(nums.begin(), nums.end());
         res.push_back(vector<int>());
         int k = 0, j;

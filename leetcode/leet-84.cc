@@ -55,7 +55,7 @@ public:
                 //the finally postion is i - 1, each step we have been pop a element,
                 //the stack hold the index, so i - 1 - st.top is right distance
                 //if we pop to stack empty, that like i - 0
-                maxArea = max(maxArea, heights[top] *(st.empty() ? i : (i - 1 - st.top())));
+                maxArea = max(maxArea, heights[top] * (st.empty() ? i : (i - 1 - st.top())));
                 // why i-- for i is suspend at heights[st.top()] <= heights[i],
                 // the loop will increment 1 in i in each step
                 i--; 
@@ -73,7 +73,7 @@ public:
             while(!st.empty() && heights[st.top()] >= heights[i]){
                 int top = st.top();
                 st.pop();
-                maxArea = max(maxArea, heights[top] *(st.empty() ? i : (i - 1 -st.top())));
+                maxArea = max(maxArea, heights[top] *(st.empty() ? i : (i - 1 - st.top())));
             }
             st.push(i);
         }

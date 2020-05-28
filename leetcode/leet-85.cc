@@ -58,7 +58,7 @@ public:
             for(int j = 0; j < col; j++){
                 if(matrix[i][j] == '1'){
                     //if in border dp[i][j] = 1, else add the row's width before it
-                    dp[i][j] =  j == 0 ? 1 : dp[i][j - 1] + 1;
+                    dp[i][j] = j == 0 ? 1 : dp[i][j - 1] + 1;
                     int width = dp[i][j];
 
                     for(int k = i; k >= 0; k--){
@@ -105,7 +105,7 @@ public:
                     left[j] = max(cur_left, left[j]);
                 }else{
                     left[j] = 0;
-                    cur_left = j + 1;
+                    cur_left = j + 1;//from left tor right record the first non '0' postion
                 }
             } 
             //update right
@@ -115,7 +115,7 @@ public:
                     right[j] = min(cur_right, right[j]);
                 }else{
                     right[j] = n;
-                    cur_right = j;
+                    cur_right = j; //from right to left, record the first '1' postion
                 }
             } 
             //update area

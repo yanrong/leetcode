@@ -14,7 +14,7 @@ public:
         ListNode *node = new ListNode(-1);
         ListNode *phead, *cur, *tmp;
         phead = node; //point th the dummy node
-        phead->next = head; // guard pointer point to the list head
+        node->next = head; // guard pointer point to the list head
         
         while(phead->next){// if the list is not empty
             cur = phead->next; // get the first one node

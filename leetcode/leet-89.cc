@@ -42,17 +42,21 @@ public:
     
     //recurese from the Internet
     void dfs(vector<int>& ans, int cur, int n){
-        if(n == 0) {ans.push_back(0); return;}//只有一位格雷，特别处理
+        if(n == 0) {
+            ans.push_back(0); 
+            return;
+        }//只有一位格雷，特别处理
         if(cur > n) return;
         if(cur == 1){
             ans.push_back(0);
             ans.push_back(1);
-            dfs(ans, cur+1, n);
+            dfs(ans, cur + 1, n);
         }else{
             int len = ans.size();//循环前确定ans的长度，在循环中，ans的长度是变化的
-            for(int j = 0; j < len; j++)
-                ans.push_back(ans[len-j-1] + pow(2, cur-1)); 
-            dfs(ans, cur+1, n);
+            for(int j = len - 1; j >= 0; j--){//from last one to first
+                ans.push_back(ans[j] + pow(2, cur - 1)); 
+            }
+            dfs(ans, cur + 1, n);
         }
     }
     vector<int> grayCode(int n) {
