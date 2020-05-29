@@ -38,7 +38,7 @@ public:
             //if the field length greater 1, it now allowed start with 0
             if(ip.size() > 1 && ip[0] == '0') continue;
             if(stoi(ip) <= 255 && stoi(ip) >= 0){
-                if(dot > 0){//if there will more than one dots, continue to trace
+                if(dot > 0){//if there have one or more dots, continue to trace
                     backTrace(ret, rest, tmp + ip + '.', dot - 1);
                 }else{// we reache to finished work
                     backTrace(ret, rest, tmp + ip, dot - 1);

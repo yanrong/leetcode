@@ -122,7 +122,7 @@ public:
         }
         return ret;
     }
-    //origin solution 4
+    //original solution 4
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
         vector<vector<int>> ret;
         if(root == nullptr){
