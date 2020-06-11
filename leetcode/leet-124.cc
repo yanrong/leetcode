@@ -13,6 +13,7 @@ struct TreeNode {
 
 class Solution {
 public:
+    //leetcode official solution
     int maxPathSum(TreeNode* root) {
         int maxChild = INT_MIN;
         helper(root, maxChild);
@@ -24,12 +25,11 @@ public:
             return 0;
         }
         //recurese the two child
-        int left = helper(node->left, maxChild);
-        int right = helper(node->right, maxChild);
-        //if the two child is valid maxPath, get the max path
-        maxChild = max(maxChild, node->val + max(left, 0) + max(right, 0));
-        // for recursion :
-        // return the max gain if continue the same path
+        int left = max(helper(node->left, maxChild), 0);
+        int right = max(helper(node->right, maxChild), 0);
+        //try to take two child as valid Path, get the max path
+        maxChild = max(maxChild, node->val + left + right);
+        // for any node, you can only choices a greater child to further path
         return node->val + max(left, right);
     }
 };
